@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.32 57.3">
+	<polygon xmlns="http://www.w3.org/2000/svg" points="43.49 57.3 43.49 42.87 61.32 42.87 61.32 0 0 0 0 57.3 8.42 57.3 8.42 8.42 52.9 8.42 52.9 34.45 18 34.45 18 42.87 35.07 42.87 35.07 57.3 43.49 57.3" style="fill:#39E58E; stroke-width:0px;"/>
+  <path xmlns="http://www.w3.org/2000/svg" id="left-eye" d="M27.83,21.44c0-3.34-2.61-5.95-5.95-5.95s-5.95,2.61-5.95,5.95,2.61,5.95,5.95,5.95,5.95-2.61,5.95-5.95Z" style="fill:#39E58E; stroke-width:0px;"/>
+  <path xmlns="http://www.w3.org/2000/svg" id="right-eye" d="M45.4,21.44c0-3.34-2.61-5.95-5.95-5.95s-5.95,2.61-5.95,5.95,2.61,5.95,5.95,5.95,5.95-2.61,5.95-5.95Z" style="fill:#39E58E; stroke-width:0px;"/>
+</svg>

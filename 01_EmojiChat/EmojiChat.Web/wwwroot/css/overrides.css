@@ -1,0 +1,18 @@
+﻿.bp-overrides {
+    --bp-color_base-disabled: rgb(59 130 246/var(--tw-bg-opacity));
+    --bp-font-color_disabled: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.dotvvm-bp-primitive_text-box 
+{
+    --tw-text-opacity: 1;
+    color: rgb(243 244 246 / var(--tw-text-opacity));
+    padding: 0;
+}
+
+.dotvvm-bp-control.dotvvm-bp-state_focused
+{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}

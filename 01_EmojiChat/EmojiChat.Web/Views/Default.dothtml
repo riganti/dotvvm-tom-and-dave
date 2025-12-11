@@ -1,0 +1,65 @@
+﻿@viewModel EmojiChat.Web.ViewModels.DefaultViewModel, EmojiChat.Web
+@masterPage Views/MasterPage.dotmaster
+@import EmojiChat.Web.Resources
+@service chatService = EmojiChat.Web.Services.ChatService
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <bp:MessagingConnection ServiceUrl="/hubs/ai"
+                            ConnectionId="Ai"
+                            IsConnected="{value: IsConnected}"
+                            Connected="{staticCommand: EventLists.Add("Connected")}"
+                            Disconnected="{staticCommand: EventLists.Add("Disconnected")}"
+                            Reconnecting="{staticCommand: EventLists.Add("Reconnecting")}"
+                            Error="{staticCommand: EventLists.Add("Error")}"
+                            TryReconnect="true" ReconnectAttempts="0" ReconnectTimeout="5">
+        <bp:MessageHandler MethodName="assistantMessageStarted"
+                           Command="{staticCommand: StreamingAnswer = "# 🤔💭🔮🎱✨"; IsLoading = true;}" />
+
+        <bp:MessageHandler MethodName="assistantMessageDelta"
+                           Command="{staticCommand: (string d) => StreamingAnswer = StreamingAnswer + d}" />
+
+        <bp:MessageHandler MethodName="assistantMessageCompleted"
+                           Command="{staticCommand: EventLists.Add('Completed'); IsLoading = false;}" />
+
+        <bp:MessageHandler MethodName="streamingResponseContentPartAddedUpdate"
+                           Command="{staticCommand: StreamingAnswer = ""}" />
+    </bp:MessagingConnection>
+
+    <div class="flex flex-col h-full max-h-dvh">
+        <div class="text-center flex flex-row text-7xl text-white mb-5 fixed top-0 w-[100vw] left-[0vw] bg-gray-700 border-b-2 border-solid border-gray-500">
+            <marquee scrollamount="12" class="p-6 flex flex-row text-white">
+                <p>Building an app in DotVVM! Live!</p>
+            </marquee>
+        </div>
+        <div class="text-white pb-[15vh] pt-[25vh] flex flex-row">
+            <div class="h-[10rem] w-[10rem] flex-0 p-6 flex flex-row sticky top-[12vw] animate-bounce" 
+                 class-animate-bounce="{value: IsLoading}">
+                <div class="flex-1 w-full min-w-[110px] min-h-[110px] animate-spin" 
+                     class-animate-spin="{value: IsLoading}">
+                    <img src="/image/logo.svg" alt="Alternate Text" />
+                </div>
+                <div class="w-0 h-0
+                            border-t-[15px] border-t-transparent
+                            border-b-[15px] border-b-transparent
+                            border-r-[20px] border-r-[#39E58E]
+                            ml-[10px] m-[45px]">
+                </div>
+            </div>
+            <div class="prose w-full mb-6 flex-1 bg-[#39E58E] p-6 rounded-xl" 
+                 data-bind="markdown-enabled: true, markdown: StreamingAnswer">
+            </div>
+        </div>
+        <form class="flex flex-row justify-between text-gray-800 flex flex-row fixed bottom-0 w-[80vw] left-[10vw] pb-5 bg-gray-700">
+            <dot:TextBox Text="{value: _this.Prompt}" 
+                         placeholder="Ask me anything..." 
+                         Enabled="{value: !IsLoading}" 
+                         class="flex-1 bg-gray-900 text-gray-100 disabled:text-gray-800 p-4 pl-10 disabled:bg-[#39E58E] rounded-l-full border-2 border-solid border-gray-900 focus:border-2 focus:border-solid focus:border-[#39E58E] disabled:border-2 disabled:border-solid disabled:border-[#39E58E] focus:outline-0" />
+            
+            <dot:Button Click="{staticCommand: chatService.Ask(Prompt); WasJumping = !WasJumping}" 
+                        class="bg-gray-900 text-white hover:bg-[#39E58E] p-8 disabled:bg-[#39E58E] rounded-r-full hover:text-gray-800 disabled:text-gray-800" 
+                        Enabled="{value: !IsLoading}"
+                        IsSubmitButton
+                        >Ask</dot:Button>
+        </form>
+    </div>
+</dot:Content>

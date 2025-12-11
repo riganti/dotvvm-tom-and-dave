@@ -1,0 +1,18 @@
+﻿@viewModel EmojiChat.Web.ViewModels.MasterPageViewModel, EmojiChat.Web
+@import EmojiChat.Web.Resources
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>EmojiChat</title>
+    <dot:RequiredResource Name="tailwind" />
+    <dot:RequiredResource Name="overrides" />
+    <dot:RequiredResource Name="site.js" />
+</head>
+<body class="bg-gray-700 max-w-3xl items-center mx-auto">
+
+    <dot:ContentPlaceHolder ID="MainContent" />
+
+</body>
+</html>
