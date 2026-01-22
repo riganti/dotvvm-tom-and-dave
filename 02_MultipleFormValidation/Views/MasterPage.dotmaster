@@ -1,0 +1,15 @@
+﻿@viewModel MultipleFormValidation.ViewModels.MasterPageViewModel, MultipleFormValidation
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MultipleFormValidation</title>
+</head>
+<body>
+
+    <bs:Container>
+        <dot:ContentPlaceHolder ID="MainContent" />
+    </bs:Container>
+</body>
+</html>

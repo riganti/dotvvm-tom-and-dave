@@ -1,0 +1,99 @@
+﻿@viewModel MultipleFormValidation.ViewModels.DefaultViewModel, MultipleFormValidation
+@masterPage Views/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <bs:CollapsiblePanel DataContext="{value: CustomerDetails}" class="my-4">
+        <HeaderTemplate>
+            Customer details
+        </HeaderTemplate>
+        <Content>
+            <bs:CardBody>
+
+                <bs:Form>
+                    <bs:FormControlTextBox LabelText="First name" Text="{value: FirstName}" />
+                    <bs:FormControlTextBox LabelText="Last name" Text="{value: LastName}" />
+                    <bs:FormControlCheckBox Checked="{value: IsCompany}" Text="I purchase as a company" />
+                    <dot:PlaceHolder IncludeInPage="{value: IsCompany}">
+                        <bs:FormControlTextBox LabelText="Company Reg. Number" Text="{value: CompanyNumber}" />
+                    </dot:PlaceHolder>
+                </bs:Form>
+
+            </bs:CardBody>
+        </Content>
+    </bs:CollapsiblePanel>
+
+    <bs:CollapsiblePanel DataContext="{value: AttendeeList}" class="my-4" IsExpanded="false">
+        <HeaderTemplate>
+            Attendee List
+        </HeaderTemplate>
+        <Content>
+            <bs:CardBody>
+
+                <bs:Row class="mb-2">
+                    <bs:Column>
+                        First name
+                    </bs:Column>
+                    <bs:Column>
+                        Last name
+                    </bs:Column>
+                    <bs:Column>
+                        Email
+                    </bs:Column>
+                    <bs:Column>
+                        &nbsp;
+                    </bs:Column>
+                </bs:Row>
+
+                <dot:Repeater DataSource="{value: Attendees}">
+                    <bs:Form>
+                        <bs:Row>
+                            <bs:Column>
+                                <bs:FormControlTextBox Text="{value: FirstName}" />
+                            </bs:Column>
+                            <bs:Column>
+                                <bs:FormControlTextBox Text="{value: LastName}" />
+                            </bs:Column>
+                            <bs:Column>
+                                <bs:FormControlTextBox Text="{value: Email}" />
+                            </bs:Column>
+                            <bs:Column>
+                                <bs:Button Text="Remove" Click="{command: _parent.Remove(_this)}"
+                                           Type="Danger"
+                                           Validation.Enabled="false" />
+                            </bs:Column>
+                        </bs:Row>
+                    </bs:Form>
+                </dot:Repeater>
+
+                <p>
+                    <bs:Button Text="Add attendee" Click="{command: Add()}" Validation.Enabled="false" />
+                </p>
+            </bs:CardBody>
+        </Content>
+    </bs:CollapsiblePanel>
+
+    <bs:CollapsiblePanel DataContext="{value: BillingAddress}" class="my-4" IsExpanded="false">
+        <HeaderTemplate>
+            Billing address
+        </HeaderTemplate>
+        <Content>
+            <bs:CardBody>
+
+                <bs:Form>
+                    <bs:FormControlTextBox LabelText="Street" Text="{value: Address1}" />
+                    <bs:FormControlTextBox LabelText="Street 2" Text="{value: Address2}" />
+                    <bs:FormControlTextBox LabelText="City" Text="{value: City}" />
+                    <bs:FormControlTextBox LabelText="ZIP" Text="{value: Zip}" />
+                </bs:Form>
+
+            </bs:CardBody>
+        </Content>
+    </bs:CollapsiblePanel>
+
+    <p class="text-center">
+        <bs:Button Click="{command: Save()}" Size="Large">
+            <bs:Icon Type="Check_Lg" /> Save
+        </bs:Button>
+    </p>
+</dot:Content>
