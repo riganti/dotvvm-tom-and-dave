@@ -1,0 +1,14 @@
+{
+  "name": "03-staticcommands",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.6"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./Styles/tailwind.input.css -o ./wwwroot/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./Styles/tailwind.input.css -o ./wwwroot/css/tailwind.css --watch"
+  }
+}

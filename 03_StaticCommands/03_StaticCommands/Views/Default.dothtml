@@ -1,0 +1,71 @@
+﻿@viewModel StaticCommands.ViewModels.DefaultViewModel, StaticCommands
+@masterPage Views/MasterPage.dotmaster
+@service fileService = StaticCommands.Services.FileService
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <div class="min-h-screen flex bg-gray-900 text-gray-100">
+
+        <!-- Left: file list -->
+        <aside class="w-80 shrink-0 p-4 border-r border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">Files</h2>
+                <span class="text-sm text-gray-400">{{value: Items.Count}}</span>
+            </div>
+
+            <!-- Search box -->
+            <form class="mb-3">
+                <div class="flex gap-2">
+                    <dot:TextBox placeholder="Search files..." 
+                                 class="w-full px-3 py-2 rounded-md bg-gray-800 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                 Text="{value: SearchText}"/>
+                    <dot:Button class="px-3 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white"
+                                Click="{staticCommand: FilteredItems = Items.Where(i => i.FileName.Contains(SearchText)).ToList()}"
+                                IsSubmitButton="true">Search</dot:Button>
+                    <dot:Button class="px-3 py-2 rounded-md bg-gray-600 hover:bg-gray-500 text-white"
+                                Click="{staticCommand: SearchText = ""; FilteredItems = null}">Cancel</dot:Button>
+                </div>
+            </form>
+
+            <div class="overflow-auto max-h-[calc(100vh-4rem)]">
+                <ul class="space-y-2">
+                    <dot:Repeater DataSource="{value: FilteredItems ?? Items}">
+                        <ItemTemplate>
+                            <li>
+                                <dot:LinkButton Click="{command: _root.LoadFile(_this)}"
+                                                class="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <span data-bind="highlight: { text: FileName, highlightedText: $root.SearchText}"></span>
+                                </dot:LinkButton>
+                                <%--<dot:LinkButton Click="{staticCommand: _root.FileContents = fileService.LoadFile(_this)}"
+                                                class="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    {{value: FileName}}
+                                </dot:LinkButton>--%>
+                            </li>
+                        </ItemTemplate>
+                    </dot:Repeater>
+                </ul>
+            </div>
+
+            <div class="mt-6 text-xs text-gray-500">
+                Tip: click a file to load its contents to the preview on the right.
+            </div>
+        </aside>
+
+        <!-- Right: code preview -->
+        <main class="flex-1 p-6">
+            <div class="h-full bg-gradient-to-b from-gray-800 via-gray-900 to-black rounded-lg shadow-inner p-4 overflow-auto max-h-[calc(100vh-4rem)]">
+                <div class="mb-3 flex items-baseline justify-between">
+                    <h3 class="text-sm text-gray-300">Preview</h3>
+                    <span class="text-xs text-gray-500">Rendered as plain text</span>
+                </div>
+
+                <div class="prose prose-invert max-w-none">
+                    <pre class="whitespace-pre-wrap bg-transparent text-sm font-mono leading-relaxed text-gray-100">{{value: FileContents}}</pre>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <div class="fixed right-0 top-0 bg-yellow-100 p-2.5 text-black diag-box hidden"></div>
+
+</dot:Content>
