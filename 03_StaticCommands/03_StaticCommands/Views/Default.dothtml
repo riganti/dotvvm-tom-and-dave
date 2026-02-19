@@ -9,7 +9,17 @@
         <aside class="w-80 shrink-0 p-4 border-r border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold">Files</h2>
-                <span class="text-sm text-gray-400">{{value: Items.Count}}</span>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-gray-400">{{value: Items.Count}}</span>
+                    <dot:Button class="px-2 py-1 rounded-md bg-green-600 hover:bg-green-500 text-white flex items-center gap-1"
+                                Click="{command: OpenModal()}"
+                                ButtonTagName="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add
+                    </dot:Button>
+                </div>
             </div>
 
             <!-- Search box -->
@@ -65,6 +75,43 @@
         </main>
 
     </div>
+
+    <!-- Modal Dialog for Adding New File -->
+    <dot:ModalDialog Open="{value: IsModalVisible}" class="bg-gray-800 rounded-lg shadow-xl p-6 max-w-md border border-gray-700 w-100">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-gray-100">Create New File</h3>
+            <dot:Button class="text-gray-400 hover:text-gray-200"
+                        Click="{command: CloseModal()}"
+                        ButtonTagName="button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </dot:Button>
+        </div>
+            
+        <form>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-300 mb-2">File Name</label>
+                <dot:TextBox placeholder="Enter file name..." 
+                             class="w-full px-3 py-2 rounded-md bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500" 
+                             Text="{value: NewFileName}"/>
+            </div>
+                
+            <div class="flex gap-3 justify-end">
+                <dot:Button class="px-4 py-2 rounded-md bg-gray-600 hover:bg-gray-500 text-white"
+                            Click="{command: CloseModal()}"
+                            ButtonTagName="button">
+                    Cancel
+                </dot:Button>
+                <dot:Button class="px-4 py-2 rounded-md bg-green-600 hover:bg-green-500 text-white"
+                            Click="{command: CreateFile()}"
+                            ButtonTagName="button"
+                            IsSubmitButton="true">
+                    Create
+                </dot:Button>
+            </div>
+        </form>
+    </dot:ModalDialog>
 
     <div class="fixed right-0 top-0 bg-yellow-100 p-2.5 text-black diag-box hidden"></div>
 

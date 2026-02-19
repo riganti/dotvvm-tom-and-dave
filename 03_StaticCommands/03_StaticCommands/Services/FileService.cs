@@ -25,4 +25,13 @@ public class FileService(IWebHostEnvironment environment)
 	{
 		return File.ReadAllText(Path.Combine(environment.ContentRootPath, Path.GetFileName(file.FileName)!));
 	}
+
+	public void CreateFile(string fileName)
+	{
+		var filePath = Path.Combine(environment.ContentRootPath, Path.GetFileName(fileName));
+		if (!File.Exists(filePath))
+		{
+			File.WriteAllText(filePath, string.Empty);
+		}
+	}
 }

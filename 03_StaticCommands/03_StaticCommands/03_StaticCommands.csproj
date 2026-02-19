@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>StaticCommands</RootNamespace>
     <AssemblyName>StaticCommands</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="**/*.dothtml;**/*.dotmaster;**/*.dotcontrol" Exclude="obj/**/*.*;bin/**/*.*" CopyToPublishDirectory="Always" />
