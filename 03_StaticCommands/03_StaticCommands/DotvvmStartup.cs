@@ -30,6 +30,7 @@ namespace StaticCommands
 
         private void ConfigureControls(DotvvmConfiguration config, string applicationPath)
         {
+            config.Markup.AddCodeControls("cc", typeof(Controls.TextHighlight));
         }
 
         private void ConfigureResources(DotvvmConfiguration config, string applicationPath)

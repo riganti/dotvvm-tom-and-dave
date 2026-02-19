@@ -13,7 +13,9 @@
                 <div class="flex items-center gap-3">
                     <span class="text-sm text-gray-400">{{value: Items.Count}}</span>
                     <dot:Button class="px-2 py-1 rounded-md bg-green-600 hover:bg-green-500 text-white flex items-center gap-1"
-                                Click="{staticCommand: IsModalVisible = true; NewFileName = ""; FocusManager.SetFocus("NewFileNameTextBox")}"
+                                Click="{staticCommand: IsModalVisible = true; 
+                                                       NewFileName = ""; 
+                                                       FocusManager.SetFocus("NewFileNameTextBox")}"
                                 Validation.Enabled="false"
                                 ButtonTagName="button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,9 +33,12 @@
                                  class="w-full px-3 py-2 rounded-md bg-gray-800 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
                                  Text="{value: SearchText}"/>
                     <dot:Button class="px-3 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white"
-                                Click="{staticCommand: FilteredItems = Items.Where(i => i.FileName.Contains(SearchText)).ToList()}"
-                                IsSubmitButton="true">Search</dot:Button>
+                                Click="{staticCommand: FilteredItems = Items
+                                                .Where(i => i.FileName.Contains(SearchText)).ToList()}"
+                                IsSubmitButton="true"
+                                ButtonTagName="button">Search</dot:Button>
                     <dot:Button class="px-3 py-2 rounded-md bg-gray-600 hover:bg-gray-500 text-white"
+                                ButtonTagName="button"
                                 Click="{staticCommand: SearchText = ""; FilteredItems = null}">Cancel</dot:Button>
                 </div>
             </form>
@@ -45,11 +50,13 @@
                             <li>
                                 <dot:LinkButton Click="{command: _root.LoadFile(_this)}"
                                                 class="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <span data-bind="highlight: { text: FileName, highlightedText: $root.SearchText}"></span>
+                                    <cc:TextHighlight Text="{value: FileName}"
+                                                      HighlightedText="{value: _root.SearchText}" />
                                 </dot:LinkButton>
                                 <%--<dot:LinkButton Click="{staticCommand: _root.FileContents = fileService.LoadFile(_this)}"
                                                 class="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    {{value: FileName}}
+                                    <cc:TextHighlight Text="{value: FileName}"
+                                        HighlightedText="{value: _root.SearchText}" />
                                 </dot:LinkButton>--%>
                             </li>
                         </ItemTemplate>
@@ -71,7 +78,8 @@
                 </div>
 
                 <div class="prose prose-invert max-w-none">
-                    <pre class="whitespace-pre-wrap bg-transparent text-sm font-mono leading-relaxed text-gray-100">{{value: FileContents}}</pre>
+                    <pre class="whitespace-pre-wrap bg-transparent text-sm font-mono leading-relaxed text-gray-100"
+                         >{{value: FileContents}}</pre>
                 </div>
             </div>
         </main>
@@ -81,7 +89,9 @@
     <!-- Modal Dialog for Adding New File -->
     <dot:ModalDialog Open="{value: IsModalVisible}" class="bg-gray-800 rounded-lg shadow-xl p-6 max-w-md border border-gray-700 w-100">
         <div class="flex items-center justify-between mb-4">
+
             <h3 class="text-xl font-semibold text-gray-100">Create New File</h3>
+
             <dot:Button class="text-gray-400 hover:text-gray-200"
                         Validation.Enabled="false"
                         Click="{staticCommand: IsModalVisible = false}"
@@ -90,6 +100,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </dot:Button>
+
         </div>
             
         <form>
@@ -105,7 +116,9 @@
                 
             <div class="flex gap-3 justify-end">
                 <dot:Button class="px-4 py-2 rounded-md bg-green-600 hover:bg-green-500 text-white"
-                            Click="{staticCommand: fileService.CreateFile(NewFileName); IsModalVisible = false; Items = fileService.GetFiles()}"
+                            Click="{staticCommand: fileService.CreateFile(NewFileName); 
+                                                   IsModalVisible = false; 
+                                                   Items = fileService.GetFiles()}"
                             ButtonTagName="button"
                             IsSubmitButton="true">
                     Create
