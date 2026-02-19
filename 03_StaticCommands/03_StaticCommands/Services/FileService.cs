@@ -12,7 +12,8 @@ public class FileService(IWebHostEnvironment environment)
 {
 	public List<FileModel> GetFiles()
 	{
-		return Directory.GetFiles(environment.ContentRootPath)
+		var contentPath = GetContentPath();
+        return Directory.GetFiles(contentPath)
 			.Select(f => new FileModel()
 			{
 				FileName = Path.GetFileName(f)
@@ -20,18 +21,29 @@ public class FileService(IWebHostEnvironment environment)
 			.ToList();
 	}
 
-	[AllowStaticCommand]
+    [AllowStaticCommand]
 	public string LoadFile(FileModel file)
 	{
-		return File.ReadAllText(Path.Combine(environment.ContentRootPath, Path.GetFileName(file.FileName)!));
+		return File.ReadAllText(Path.Combine(GetContentPath(), Path.GetFileName(file.FileName)!));
 	}
 
-	public void CreateFile(string fileName)
+    public void CreateFile(string fileName)
 	{
-		var filePath = Path.Combine(environment.ContentRootPath, Path.GetFileName(fileName));
+		var contentPath = Path.Combine(environment.ContentRootPath, "Content");
+		if (!Directory.Exists(contentPath))
+		{
+			Directory.CreateDirectory(contentPath);
+		}
+		
+		var filePath = Path.Combine(contentPath, Path.GetFileName(fileName));
 		if (!File.Exists(filePath))
 		{
 			File.WriteAllText(filePath, string.Empty);
 		}
 	}
+
+    private string GetContentPath()
+    {
+        return Path.Combine(environment.ContentRootPath, "Content");
+    }
 }
