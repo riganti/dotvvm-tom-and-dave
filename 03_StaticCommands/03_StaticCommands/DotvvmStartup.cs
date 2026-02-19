@@ -18,7 +18,8 @@ namespace StaticCommands
             config.Markup.JavascriptTranslator.MethodCollection.AddMethodTranslator(
                 typeof(FocusManager), nameof(FocusManager.SetFocus), 
                 new GenericMethodCompiler((args) => 
-                    new JsIdentifierExpression("document").Member("getElementById").Invoke(args[1].CloneIfAlreadyUsed())
+                    new JsIdentifierExpression("document").Member("getElementById")
+                        .Invoke(args[1].CloneIfAlreadyUsed())
                         .Member("focus").Invoke())
             );
         }

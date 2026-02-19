@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotVVM.Framework.ViewModel;
 using StaticCommands.Model;
 using StaticCommands.Services;
 
@@ -33,26 +34,6 @@ public class DefaultViewModel(FileService fileService) : MasterPageViewModel
 	public void LoadFile(FileModel file)
 	{
 		FileContents = fileService.LoadFile(file);
-	}
-
-	public void OpenModal()
-	{
-		IsModalVisible = true;
-		NewFileName = null;
-	}
-
-	public void CloseModal()
-	{
-		IsModalVisible = false;
-		NewFileName = null;
-	}
-
-	public void CreateFile()
-	{
-		fileService.CreateFile(NewFileName!);
-		Items = fileService.GetFiles();
-		FilteredItems = null;
-		CloseModal();
 	}
 
 }
