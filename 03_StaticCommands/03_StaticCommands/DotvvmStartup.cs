@@ -1,4 +1,6 @@
-﻿using DotVVM.Framework.Configuration;
+﻿using DotVVM.Framework.Compilation.Javascript;
+using DotVVM.Framework.Compilation.Javascript.Ast;
+using DotVVM.Framework.Configuration;
 using DotVVM.Framework.ResourceManagement;
 using DotVVM.Framework.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +14,13 @@ namespace StaticCommands
             ConfigureRoutes(config, applicationPath);
             ConfigureControls(config, applicationPath);
             ConfigureResources(config, applicationPath);
+
+            config.Markup.JavascriptTranslator.MethodCollection.AddMethodTranslator(
+                typeof(FocusManager), nameof(FocusManager.SetFocus), 
+                new GenericMethodCompiler((args) => 
+                    new JsIdentifierExpression("document").Member("getElementById").Invoke(args[1].CloneIfAlreadyUsed())
+                        .Member("focus").Invoke())
+            );
         }
 
         private void ConfigureRoutes(DotvvmConfiguration config, string applicationPath)

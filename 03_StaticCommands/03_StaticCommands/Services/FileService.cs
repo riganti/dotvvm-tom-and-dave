@@ -1,6 +1,7 @@
 ﻿using StaticCommands.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using DotVVM.Framework.ViewModel;
@@ -10,6 +11,7 @@ namespace StaticCommands.Services;
 
 public class FileService(IWebHostEnvironment environment)
 {
+	[AllowStaticCommand]
 	public List<FileModel> GetFiles()
 	{
 		var contentPath = GetContentPath();
@@ -27,7 +29,8 @@ public class FileService(IWebHostEnvironment environment)
 		return File.ReadAllText(Path.Combine(GetContentPath(), Path.GetFileName(file.FileName)!));
 	}
 
-    public void CreateFile(string fileName)
+    [AllowStaticCommand(StaticCommandValidation.Automatic)]
+    public void CreateFile([Required] string fileName)
 	{
 		var contentPath = Path.Combine(environment.ContentRootPath, "Content");
 		if (!Directory.Exists(contentPath))
