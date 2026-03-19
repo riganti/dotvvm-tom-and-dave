@@ -1,0 +1,6 @@
+@viewModel ComplexControls.Web.Pages.JsEnhanced.JsEnhancedViewModel, ComplexControls.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent" >
+    <cc:InfiniteScroll Items={value: Items} LoadMoreItemsCommand={command: LoadMoreItems()}/>
+</dot:Content>

@@ -1,0 +1,6 @@
+@viewModel ComplexControls.Web.Pages.LegacyCodeOnlyControls.LegacyCodeOnlyControlsViewModel, ComplexControls.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <cc:TextBoxWithLabel LabelText="This is a TextBox with a label" Text="{value: TextBoxText}" />
+</dot:Content>

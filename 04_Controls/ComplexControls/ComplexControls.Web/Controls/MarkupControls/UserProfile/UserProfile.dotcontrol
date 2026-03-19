@@ -1,0 +1,10 @@
+@viewModel object
+@property string Name
+@property string Email
+
+<div class="flex flex-col gap-2 items-center justify-center">
+    <cc:Icon Type="User" HasBackgroundRing="true" IconVariant="Dark" BackgroundRingVariant="Success"  />
+    <p class="text-xl font-bold">User Profile</p>
+    <p>Name: {{value: _control.Name}}</p>
+    <p>Email: {{value: _control.Email}}</p>
+</div>

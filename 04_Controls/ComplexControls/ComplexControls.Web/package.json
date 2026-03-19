@@ -1,0 +1,13 @@
+{
+  "name": "complexcontrols.web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "build": "postcss Resources/Styles/tailwind.css -o wwwroot/css/tailwind.css",
+    "watch": "postcss Resources/Styles/tailwind.css -o wwwroot/css/tailwind.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

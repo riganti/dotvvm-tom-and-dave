@@ -1,0 +1,18 @@
+@viewModel System.Object
+@baseType ComplexControls.Web.Controls.AddressForm, ComplexControls.Web
+
+<div class="flex flex-col gap-2">
+    <label class="font-bold" for="Street">Street</label>
+    <dot:TextBox class="bg-gray-800 text-white border-gray-600 border-2 rounded" Text={value: _control.Street} ID="Street" />
+
+    <label class="font-bold" for="City">City</label>
+    <dot:TextBox class="bg-gray-800 text-white border-gray-600 border-2 rounded" Text={value: _control.City} ID="City" />
+
+    <label class="font-bold" for="State">State</label>
+    <dot:TextBox class="bg-gray-800 text-white border-gray-600 border-2 rounded" Text={value: _control.State} ID="State" />
+
+    <label class="font-bold" for="ZipCode">Zip Code</label>
+    <dot:TextBox class="bg-gray-800 text-white border-gray-600 border-2 rounded" Text={value: _control.ZipCode} ID="ZipCode" />
+
+    <dot:CheckBox Checked={value: _control.IsHuman} Text="I am human" ID="IsHuman" />
+</div>

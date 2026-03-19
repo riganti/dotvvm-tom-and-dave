@@ -1,0 +1,26 @@
+@viewModel ComplexControls.Web.Pages.MasterPageViewModel, ComplexControls.Web
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Complex control dashboard</title>
+    <dot:RequiredResource Name="tailwind" />
+    <dot:RequiredResource Name="InfiniteScrollModule"  />
+</head>
+<body class="bg-gray-800 text-white flex flex-col min-h-screen gap-4">
+    <header class="flex flex-col items-center justify-center gap-4 py-4">
+        <p class="text-2xl font-bold text-center">Welcome to the DotVVM Control experience!</p>
+        <nav class="flex flex-row items-center gap-4">
+            <cc:RouteLink RouteName="Default" Text="Basic Pass-Through Composite Controls" />
+            <cc:RouteLink RouteName="MarkupControls" Text="Markup Controls" />
+            <cc:RouteLink RouteName="LegacyCodeOnlyControls" Text="Legacy Code Only Controls" />
+            <cc:RouteLink RouteName="ControlsWithViewModels" Text="Controls With ViewModels" />
+            <cc:RouteLink RouteName="JsEnhanced" Text="JS Enhanced Controls" />
+        </nav>
+    </header>
+    <main class="flex-grow flex flex-col items-center justify-center gap-4">
+        <dot:ContentPlaceHolder ID="MainContent"  />
+    </main>
+</body>
+</html>

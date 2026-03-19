@@ -1,0 +1,14 @@
+@viewModel ComplexControls.Web.Pages.MarkupControls.MarkupControlsViewModel, ComplexControls.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent" >
+    <p class="text-2xl font-bold text-center">A nice address form:</p>
+    <cc:AddressForm Street="{value: Address.Street}"
+                    City="{value: Address.City}"
+                    State="{value: Address.State}"
+                    ZipCode="{value: Address.ZipCode}"
+                    IsHuman="{value: Address.IsHuman}"/>
+
+    <p class="text-2xl font-bold text-center">And a user profile:</p>
+    <cc:UserProfile Name="{value: UserName}" Email="{value: UserEmail}" />
+</dot:Content>

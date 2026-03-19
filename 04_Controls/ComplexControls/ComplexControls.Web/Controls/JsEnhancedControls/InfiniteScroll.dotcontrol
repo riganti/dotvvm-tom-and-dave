@@ -1,0 +1,21 @@
+@viewModel object
+@import System.Collections.Generic
+@import System
+@property List<string> Items
+@property Action LoadMoreItemsCommand
+@js InfiniteScrollModule
+
+<dot:NamedCommand Name="LoadMoreItems" Command={command: _control.LoadMoreItemsCommand()}  />
+
+<div class="flex flex-col gap-4">
+    <dot:Repeater DataSource={value: _control.Items} >
+        <ItemTemplate>
+            <div class="mt-2 flex items-center gap-2">
+                <span>{{value: _this}}</span>
+            </div>
+        </ItemTemplate>
+    </dot:Repeater>
+    <div id="sentinel" data-infinite-scroll-sentinel="true" class="h-10">
+        
+    </div>
+</div>

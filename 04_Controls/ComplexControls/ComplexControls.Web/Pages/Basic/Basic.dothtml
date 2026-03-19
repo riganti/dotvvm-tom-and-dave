@@ -1,0 +1,72 @@
+@viewModel ComplexControls.Web.ViewModels.BasicViewModel, ComplexControls.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent" >
+    <p class="text-2xl font-bold text-center">{{value: Title}}</p>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Icon Type="Home" IconVariant="Primary" />
+        <cc:Icon Type="Search" IconVariant="Secondary" />
+        <cc:Icon Type="User" IconVariant="Success" />
+        <cc:Icon Type="Settings" IconVariant="Danger" />
+        <cc:Icon Type="Home" IconVariant="Warning" />
+        <cc:Icon Type="Search" IconVariant="Info" />
+        <cc:Icon Type="User" IconVariant="Light" />
+        <cc:Icon Type="Settings" IconVariant="Dark" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Icon HasBackgroundRing="true" Type="Home" IconVariant="Primary" />
+        <cc:Icon HasBackgroundRing="true" Type="Search" IconVariant="Secondary" />
+        <cc:Icon HasBackgroundRing="true" Type="User" IconVariant="Success" />
+        <cc:Icon HasBackgroundRing="true" Type="Settings" IconVariant="Danger" />
+        <cc:Icon HasBackgroundRing="true" Type="Home" IconVariant="Warning" />
+        <cc:Icon HasBackgroundRing="true" Type="Search" IconVariant="Info" />
+        <cc:Icon HasBackgroundRing="true" Type="User" IconVariant="Light" />
+        <cc:Icon HasBackgroundRing="true" Type="Settings" IconVariant="Dark" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Primary" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Secondary" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Success" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Danger" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Warning" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Info" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Light" />
+        <cc:Icon Style="Outline" Type="Cat" IconVariant="Dark" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Home" IconVariant="Primary" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Search" IconVariant="Secondary" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="User" IconVariant="Success" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Settings" IconVariant="Danger" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Home" IconVariant="Warning" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Search" IconVariant="Info" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="User" IconVariant="Light" />
+        <cc:Icon HasBackgroundRing="true" Style="Outline" Type="Settings" IconVariant="Dark" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Button Text="Click me" ClickCommand={command: ClickButton()} IconType="Search" IconStyle="Outline" Variant="Danger" IconIconVariant="Dark"   />
+        <cc:Button Text="Click me Too!" ClickCommand={command: ClickButton()} IconPlacement="Right" IconType="Home" IconStyle="Outline" IconIconVariant="Light" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Button Text="Click me" ClickCommand={command: ClickButton()} IconHasBackgroundRing="true" IconType="Search" IconStyle="Outline" Variant="Danger" IconIconVariant="Dark"   
+                   title="Will search in the list"/>
+        <cc:Button Text="Click me Too!" ClickCommand={command: ClickButton()} IconPlacement="Right" IconHasBackgroundRing="true" IconBackgroundRingVariant="Danger"  IconType="Home" IconStyle="Outline" IconIconVariant="Warning" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Checkbox Text="Check me" IsChecked={value: IsChecked1} CheckedChangedCommand={command: ClickCheckbox1()} CheckIconType="Check" CheckIconStyle="Outline" Variant="Success" CheckIconIconVariant="Light" />
+        <cc:Checkbox Text="Check me Too!" IsChecked={value: IsChecked2} CheckedChangedCommand={command: ClickCheckbox2()} CheckIconType="Home" CheckIconStyle="Outline" CheckIconIconVariant="Dark" />
+    </div>
+
+    <div class="flex flex-row items-center gap-2">
+        <cc:Checkbox Text="Check me" IsChecked={value: IsChecked1} CheckedChangedCommand={command: ClickCheckbox1()} CheckIconHasBackgroundRing="true" CheckIconType="Check" CheckIconStyle="Outline" Variant="Success" CheckIconIconVariant="Light" CheckIconBackgroundRingVariant="Success" />
+        <cc:Checkbox Text="Check me Too!" IsChecked={value: IsChecked2} CheckedChangedCommand={command: ClickCheckbox2()} CheckIconHasBackgroundRing="true" CheckIconType="Home" CheckIconStyle="Outline" CheckIconIconVariant="Dark" CheckIconBackgroundRingVariant="Danger"  />
+    </div>
+
+</dot:Content>
