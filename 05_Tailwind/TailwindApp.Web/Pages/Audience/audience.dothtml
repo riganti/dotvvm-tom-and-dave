@@ -1,0 +1,118 @@
+@viewModel TailwindApp.Web.Pages.AudienceViewModel, TailwindApp.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <t:StackLayout Orientation="Vertical">
+        <t:Breadcrumb>
+            <t:BreadcrumbItem Text="Home" NavigateUrl="/" />
+            <t:BreadcrumbItem Text="Audience" IsActive="true" />
+        </t:Breadcrumb>
+
+        <t:Card>
+            <HeaderTemplate>
+                <div class="flex items-center gap-2">
+                    <t:Icon Icon="ChartPie" />
+                    <span>Audience mix</span>
+                </div>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Vertical">
+                    <t:StackLayout Orientation="Vertical">
+                        <span>Creators</span>
+                        <t:ProgressBar Value="58" Color="Primary" ShowLabel="true" />
+                    </t:StackLayout>
+                    <t:StackLayout Orientation="Vertical">
+                        <span>Founders</span>
+                        <t:ProgressBar Value="24" Color="Info" ShowLabel="true" />
+                    </t:StackLayout>
+                    <t:StackLayout Orientation="Vertical">
+                        <span>Brands</span>
+                        <t:ProgressBar Value="18" Color="Warning" ShowLabel="true" />
+                    </t:StackLayout>
+                </t:StackLayout>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card>
+            <HeaderTemplate>
+                <div class="flex items-center gap-2">
+                    <t:Icon Icon="RectangleStack" />
+                    <span>Platform balance</span>
+                </div>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:ListControl>
+                    <t:ListItem Text="Instagram" SubText="Most active for saves and shares" BadgeText="61K" BadgeColor="Primary" />
+                    <t:ListItem Text="TikTok" SubText="Fastest follower acceleration" BadgeText="39K" BadgeColor="Info" />
+                    <t:ListItem Text="LinkedIn" SubText="Highest intent among decision makers" BadgeText="28K" BadgeColor="Warning" />
+                </t:ListControl>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card>
+            <HeaderTemplate>
+                <div class="flex items-center gap-2">
+                    <t:Icon Icon="Users" />
+                    <span>Top follower personas</span>
+                </div>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Horizontal" Gap="4">
+                    <Content>
+                        <dot:Repeater DataSource="{value: Personas}" RenderWrapperTag="false">
+                            <ItemTemplate>
+                                <t:Card Horizontal="true">
+                                    <ContentTemplate>
+                                        <div class="flex items-center gap-3">
+                                            <t:Avatar Initials="{value: Initials}" AltText="{value: Name}" Size="Large" />
+                                            <div>
+                                                <div class="font-medium text-gray-900">{{value: Name}}</div>
+                                                <div class="text-sm text-gray-500">{{value: Role}}</div>
+                                            </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </t:Card>
+                            </ItemTemplate>
+                        </dot:Repeater>
+                    </Content>
+                </t:StackLayout>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card>
+            <HeaderTemplate>
+                <div class="flex items-center gap-2">
+                    <t:Icon Icon="GlobeAlt" />
+                    <span>Region breakdown</span>
+                </div>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <div class="grid-table-wrapper" data-ui="table-data">
+                    <t:GridView DataSource="{value: Regions}">
+                        <Columns>
+                            <dot:GridViewTextColumn HeaderText="Region" ValueBinding="{value: Name}" />
+                            <dot:GridViewTextColumn HeaderText="Followers" ValueBinding="{value: Followers}" />
+                            <dot:GridViewTextColumn HeaderText="Growth" ValueBinding="{value: Growth}" />
+                            <dot:GridViewTextColumn HeaderText="Top channel" ValueBinding="{value: TopChannel}" />
+                        </Columns>
+                    </t:GridView>
+                </div>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card>
+            <HeaderTemplate>
+                <div class="flex items-center gap-2">
+                    <t:Icon Icon="Signal" />
+                    <span>Signals to watch</span>
+                </div>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Vertical">
+                    <t:Alert Type="Info" Text="Creator audience is leaning more educational. How-to content is earning longer watch time." />
+                    <t:Alert Type="Warning" Text="Founder audience wants stronger proof. Case studies and metrics now outperform brand storytelling." />
+                </t:StackLayout>
+            </ContentTemplate>
+        </t:Card>
+    </t:StackLayout>
+</dot:Content>

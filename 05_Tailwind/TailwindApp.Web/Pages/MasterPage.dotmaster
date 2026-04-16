@@ -1,0 +1,45 @@
+@viewModel TailwindApp.Web.Pages.MasterPageViewModel, TailwindApp.Web
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{value: Title}}</title>
+</head>
+<body class="bg-light-100 font-sans text-gray-900">
+    <header class="border-b border-light-300 bg-white">
+        <t:TopMenu>
+            <StartTemplate>
+                <div>
+                    <div class="text-sm font-semibold text-gray-900">DaveExample</div>
+                    <div class="text-xs text-gray-500">Social media analytics</div>
+                </div>
+            </StartTemplate>
+            <EndTemplate>
+                <div class="flex items-center gap-3">
+                    <t:Avatar Initials="{value: UserInitials}" AltText="{value: UserInitials}" />
+                </div>
+            </EndTemplate>
+        </t:TopMenu>
+    </header>
+    <div class="app-layout-body">
+        <div class="side-menu-panel">
+            <t:SideMenu class="side-menu-panel">
+                <Items>
+                    <t:MenuItem Text="Overview" Icon="Home" NavigateUrl="/" />
+                    <t:MenuItem Text="Campaigns" Icon="RocketLaunch" NavigateUrl="/campaigns" />
+                    <t:MenuItemSeparator />
+                    <t:MenuItem Text="Audience" Icon="Users" NavigateUrl="/audience" />
+                </Items>
+            </t:SideMenu>
+        </div>
+        <main class="app-layout-content"
+              style="min-height: calc(100vh - var(--topbar-height))">
+            <div>
+                <dot:ContentPlaceHolder ID="MainContent" />
+            </div>
+        </main>
+    </div>
+</body>
+</html>

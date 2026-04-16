@@ -1,0 +1,125 @@
+@viewModel TailwindApp.Web.Pages.OverviewViewModel, TailwindApp.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <t:StackLayout Orientation="Vertical">
+        <t:Breadcrumb>
+            <t:BreadcrumbItem Text="Home" NavigateUrl="/" />
+            <t:BreadcrumbItem Text="Overview" IsActive="true" />
+        </t:Breadcrumb>
+
+        <t:StackLayout Orientation="Horizontal">
+
+            <t:DropDownButton Text="Share snapshot" Type="Primary" Icon="Share">
+                <t:DropDownItem Text="Export PDF" />
+                <t:DropDownItem Text="Share link" />
+                <t:DropDownItem Text="Send to team" />
+            </t:DropDownButton>
+
+            <t:Button Icon="Flag" Text="Set goal" Click="{staticCommand: ShowGoalModal = true}" />
+        </t:StackLayout>
+        <t:Card>
+            <HeaderTemplate>
+                <t:StackLayout Orientation="Horizontal" Alignment="Center">
+                    <t:Icon Icon="ArrowTrendingUp" />
+                    <span>Top 3 posts</span>
+
+                    <t:ButtonGroup>
+                        <t:Button Text="Today" Click="{command: SwitchTimeRange(0)}" />
+                        <t:Button Text="7 days" Click="{command: SwitchTimeRange(1)}" />
+                        <t:Button Text="30 days" Click="{command: SwitchTimeRange(2)}" />
+                    </t:ButtonGroup>
+                </t:StackLayout>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Horizontal" Justify="Center">
+                    <dot:Repeater DataSource="{value: PostCards}" RenderWrapperTag="false">
+                        <ItemTemplate>
+                            <t:Card HeaderText="{value: Date.ToString("dd.MM.yyyy")}" ImageUrl="{value: ImageUrl}" ImageAlt="{value: Text}">
+                                <ContentTemplate>
+                                    <t:StackLayout Orientation="Vertical">
+                                        <t:StackLayout Orientation="Horizontal">
+                                            <dot:Repeater DataSource="{value: Platforms}">
+                                                <ItemTemplate>
+                                                    <t:Badge Color="Primary" Text="{value: _this}" />
+                                                </ItemTemplate>
+                                            </dot:Repeater>
+                                        </t:StackLayout>
+                                        <p>{{value: Text}}</p>
+                                    </t:StackLayout>
+                                </ContentTemplate>
+                                <FooterTemplate>
+                                    <t:StackLayout Orientation="Horizontal" Justify="SpaceAround">
+                                        <t:StackLayout Orientation="Horizontal">
+                                            <t:Icon Icon="Heart" /> {{value: Likes}}
+                                        </t:StackLayout>
+                                        <t:StackLayout Orientation="Horizontal">
+                                            <t:Icon Icon="Share" /> {{value: Shares}}
+                                        </t:StackLayout>
+                                        <t:StackLayout Orientation="Horizontal">
+                                            <t:Icon Icon="ArrowPathRoundedSquare" /> {{value: Reposts}}
+                                        </t:StackLayout>
+                                    </t:StackLayout>
+                                </FooterTemplate>
+                            </t:Card>
+                        </ItemTemplate>
+                    </dot:Repeater>
+                </t:StackLayout>
+            </ContentTemplate>
+            <FooterTemplate>
+                <t:Alert Type="Warning" Text="Your posts have gained 100000% more likes than before! Good job!" />
+            </FooterTemplate>
+        </t:Card>
+        <t:Card>
+            <HeaderTemplate>
+                <t:StackLayout Orientation="Horizontal">
+                    <t:Icon Icon="ChartBar" />
+                    <span>Statistics</span>
+                </t:StackLayout>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Horizontal" Justify="Center">
+                    <t:Card Color="Primary" HeaderText="Total ad spend">
+                        <ContentTemplate>
+                            $ 5500
+                        </ContentTemplate>
+                        <FooterTemplate>
+                            You spent 500% more than last period.
+                        </FooterTemplate>
+                    </t:Card>
+                    <t:Card Color="Success" HeaderText="Total likes gained">
+                        <ContentTemplate>
+                            1657
+                        </ContentTemplate>
+                        <FooterTemplate>
+                            That's 431 more than last period.
+                        </FooterTemplate>
+                    </t:Card>
+                    <t:Card Color="Danger" HeaderText="Total followers">
+                        <ContentTemplate>
+                            10
+                        </ContentTemplate>
+                        <FooterTemplate>
+                            That's 50 less than last period.
+                        </FooterTemplate>
+                    </t:Card>
+                </t:StackLayout>
+            </ContentTemplate>
+        </t:Card>
+    </t:StackLayout>
+
+    <t:ModalDialog Title="Set the next weekly goal" IsOpen="{value: ShowGoalModal}">
+        <ContentTemplate>
+            <div class="space-y-3 text-sm text-gray-600">
+                <t:ListControl>
+                    <t:ListItem Text="Reach 3M impressions" SubText="Driven by creator clips and paid boosts" BadgeText="Ambitious" BadgeColor="Primary" />
+                    <t:ListItem Text="Raise save rate to 6%" SubText="Improve hooks and stronger calls to action" BadgeText="Likely" BadgeColor="Success" />
+                </t:ListControl>
+            </div>
+        </ContentTemplate>
+        <FooterTemplate>
+            <t:Button Text="Close" Click="{staticCommand: ShowGoalModal = false}" />
+            <t:Button Text="Pin this goal" Type="Primary" Icon="Flag" Click="{staticCommand: ShowGoalModal = false}" />
+        </FooterTemplate>
+    </t:ModalDialog>
+</dot:Content>

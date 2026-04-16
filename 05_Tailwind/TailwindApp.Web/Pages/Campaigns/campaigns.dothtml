@@ -1,0 +1,86 @@
+@viewModel TailwindApp.Web.Pages.CampaignsViewModel, TailwindApp.Web
+@masterPage Pages/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <t:StackLayout Orientation="Vertical">
+        <t:Breadcrumb>
+            <t:BreadcrumbItem Text="Home" NavigateUrl="/" />
+            <t:BreadcrumbItem Text="Campaigns" IsActive="true" />
+        </t:Breadcrumb>
+
+        <t:StackLayout Orientation="Horizontal">
+            <t:DropDownButton Text="Quick actions" Type="Primary" Icon="Bolt">
+                <t:DropDownItem Text="Duplicate campaign" />
+                <t:DropDownItem Text="Export pipeline" />
+                <t:DropDownItem Text="Invite approver" />
+            </t:DropDownButton>
+            <t:Button Text="New campaign" Type="Primary" Icon="Plus" Click="{staticCommand: ShowLaunchModal = true}" />
+        </t:StackLayout>
+
+        <t:Card>
+            <HeaderTemplate>
+                <t:StackLayout Orientation="Horizontal">
+                    <t:Icon Icon="QueueList" />
+                    <span>Campaign pipeline</span>
+                    <t:ComboBox DataSource="{value: Channels}" SelectedValue="{value: SelectedChannel}" />
+                </t:StackLayout>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <div class="grid-table-wrapper" data-ui="table-data">
+                    <t:GridView DataSource="{value: ActiveCampaigns}">
+                        <dot:GridViewTextColumn ValueBinding="{value: Name}" HeaderText="Name" AllowSorting="true" />
+                        <dot:GridViewTemplateColumn HeaderText="Status">
+                            <ContentTemplate>
+                                <t:Badge Color="Primary" Text="{value: StatusText}" />
+                            </ContentTemplate>
+                        </dot:GridViewTemplateColumn>
+                        <dot:GridViewTemplateColumn CssClass="flex flex-row justify-end">
+                            <ContentTemplate>
+                                <t:Button Type="Danger" Icon="Trash" Text="Delete" Click="{command: _this}" />
+                            </ContentTemplate>
+                        </dot:GridViewTemplateColumn>
+                    </t:GridView>
+                </div>
+            </ContentTemplate>
+        </t:Card>
+        <t:Card>
+            <HeaderTemplate>
+                <t:StackLayout Orientation="Horizontal">
+                    <t:Icon Icon="Sparkles" />
+                    <span>What to optimize next</span>
+                </t:StackLayout>
+            </HeaderTemplate>
+            <ContentTemplate>
+                <t:StackLayout Orientation="Vertical">
+                    <t:Alert Type="Warning" Text="Approve paid creative refresh before tomorrow morning." />
+                    <t:Alert Type="Info" Text="Shift 10% more spend toward creator whitelisting." />
+                    <t:Alert Type="Info" Text="Add one urgency variation to the best headline." />
+                </t:StackLayout>
+            </ContentTemplate>
+        </t:Card>
+    </t:StackLayout>
+
+    <t:ModalDialog Title="New campaign concept" IsOpen="{value: ShowLaunchModal}">
+        <ContentTemplate>
+            <div Visible="{value: !IsCreating}">
+                <div class="space-y-4">
+                    <t:TextBoxFormField LabelText="Campaign name" Text="{value: CampaignModel.CampaignName}" />
+                    <t:TextBoxFormField LabelText="Budget" Text="{value: CampaignModel.Budget}" />
+                    <t:TextBoxFormField LabelText="Goal" Text="{value: CampaignModel.Goal}" />
+                </div>
+            </div>
+            <div Visible="{value: IsCreating}" class="flex flex-col items-center justify-center gap-4 py-8">
+                <t:Spinner />
+                <div class="text-sm text-gray-500">Setting up your campaign…</div>
+            </div>
+        </ContentTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end gap-2">
+                <t:Button Text="Cancel" Click="{command: CloseLaunchModal()}" />
+                <t:Button Text="Create draft" Type="Primary" Icon="Plus" Click="{command: CreateCampaign()}" Visible="{value: !IsCreating}" />
+                <t:Button Text="Done" Type="Primary" Icon="Check" Click="{command: FinishCreate()}" Visible="{value: IsCreating}" />
+            </div>
+        </FooterTemplate>
+    </t:ModalDialog>
+</dot:Content>
