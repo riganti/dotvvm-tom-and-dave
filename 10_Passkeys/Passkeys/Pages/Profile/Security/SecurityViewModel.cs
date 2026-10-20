@@ -22,6 +22,7 @@ public class SecurityViewModel(
     public override async Task Init()
     {
         await Context.Authorize();
+        PageTitle = "Security · Passkeys demo";
         await base.Init();
     }
 

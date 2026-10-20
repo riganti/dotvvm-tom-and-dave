@@ -1,0 +1,43 @@
+@viewModel _10_Passkeys.Pages.AuthLayoutViewModel, 10_Passkeys
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{resource: PageTitle}}</title>
+    <link rel="icon" type="image/svg+xml" href="/img/mascot.svg" />
+    <dot:RequiredResource Name="app.css" />
+    <dot:RequiredResource Name="app.js" />
+    <dot:HeadResourceLinks />
+</head>
+<body class="auth-shell">
+    <div class="auth-grid">
+        <aside class="auth-stage">
+            <div class="brand">
+                <cc:Mascot class="mascot brand-mark" />
+                <span class="brand-name">Passkeys</span>
+                <span class="brand-pill">demo</span>
+            </div>
+
+            <div class="auth-hero">
+                <div class="bubble bubble-down">
+                    <dot:ContentPlaceHolder ID="MascotSays" />
+                </div>
+                <div class="mascot-stage">
+                    <cc:Mascot class="mascot mascot-float auth-character" />
+                    <div class="mascot-shadow"></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="auth-panel">
+            <div class="auth-card">
+                <dot:ContentPlaceHolder ID="MainContent" />
+            </div>
+        </main>
+    </div>
+
+    <dot:BodyResourceLinks />
+</body>
+</html>

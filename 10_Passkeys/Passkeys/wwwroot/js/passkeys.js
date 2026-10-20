@@ -20,6 +20,7 @@ class PasskeysModule {
             if (!result.Succeeded) {
                 throw new Error(result.Error);
             }
+            this.setStatus("Passkey saved! Taking you back…", "success");
             window.location.assign("/profile/security");
         });
     }
@@ -40,6 +41,7 @@ class PasskeysModule {
             if (!result.Succeeded) {
                 throw new Error(result.Error);
             }
+            this.setStatus("You're in! Redirecting…", "success");
             window.location.assign("/profile");
         });
     }
@@ -50,12 +52,12 @@ class PasskeysModule {
         this.busy = true;
         try {
             this.ensureSupport();
-            this.setStatus("Follow the browser instructions.");
+            this.setStatus("Follow the browser instructions.", "busy");
             await action();
         }
         catch (error) {
             const message = error instanceof Error ? error.message : "The operation failed.";
-            this.setStatus(message);
+            this.setStatus(message, "error");
         }
         finally {
             this.busy = false;
@@ -70,7 +72,9 @@ class PasskeysModule {
             throw new Error("Use HTTPS and a browser with WebAuthn support.");
         }
     }
-    setStatus(message) {
+    setStatus(message, state) {
+        // The mascot styles in app.css react to this state.
+        document.documentElement.dataset.passkey = state;
         const element = document.querySelector("[data-passkey-status]");
         if (element) {
             element.textContent = message;

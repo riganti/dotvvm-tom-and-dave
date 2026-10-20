@@ -1,0 +1,18 @@
+@viewModel object
+@property string Title
+@property string Subtitle
+@property string MascotSays
+@noWrapperTag
+
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-hero-text">
+            <h1 class="page-hero-title">{{value: _control.Title}}</h1>
+            <p class="page-hero-subtitle">{{value: _control.Subtitle}}</p>
+        </div>
+        <div class="page-hero-mascot">
+            <p class="bubble bubble-right">{{value: _control.MascotSays}}</p>
+            <cc:Mascot class="mascot mascot-float page-hero-character" />
+        </div>
+    </div>
+</section>

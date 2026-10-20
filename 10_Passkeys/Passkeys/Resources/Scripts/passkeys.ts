@@ -25,6 +25,7 @@ class PasskeysModule {
                 throw new Error(result.Error);
             }
 
+            this.setStatus("Passkey saved! Taking you back…", "success");
             window.location.assign("/profile/security");
         });
     }
@@ -50,6 +51,7 @@ class PasskeysModule {
                 throw new Error(result.Error);
             }
 
+            this.setStatus("You're in! Redirecting…", "success");
             window.location.assign("/profile");
         });
     }
@@ -62,11 +64,11 @@ class PasskeysModule {
         this.busy = true;
         try {
             this.ensureSupport();
-            this.setStatus("Follow the browser instructions.");
+            this.setStatus("Follow the browser instructions.", "busy");
             await action();
         } catch (error) {
             const message = error instanceof Error ? error.message : "The operation failed.";
-            this.setStatus(message);
+            this.setStatus(message, "error");
         } finally {
             this.busy = false;
         }
@@ -82,7 +84,10 @@ class PasskeysModule {
         }
     }
 
-    private setStatus(message: string): void {
+    private setStatus(message: string, state: "busy" | "error" | "success"): void {
+        // The mascot styles in app.css react to this state.
+        document.documentElement.dataset.passkey = state;
+
         const element = document.querySelector("[data-passkey-status]");
         if (element) {
             element.textContent = message;

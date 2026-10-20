@@ -9,6 +9,8 @@ public class BasicInfoViewModel(
     UserManager<ApplicationUser> userManager,
     SignInManager<ApplicationUser> signInManager) : LayoutViewModel
 {
+    private ApplicationUser? user;
+
     public BasicInfoForm Form { get; set; } = new();
 
     [Bind(Direction.ServerToClient)]
@@ -17,23 +19,47 @@ public class BasicInfoViewModel(
     [Bind(Direction.ServerToClient)]
     public bool ProfileSaved { get; set; }
 
+    [Bind(Direction.ServerToClient)]
+    public string DisplayName { get; set; } = string.Empty;
+
+    [Bind(Direction.ServerToClient)]
+    public string Initials { get; set; } = string.Empty;
+
+    [Bind(Direction.ServerToClient)]
+    public string Email { get; set; } = string.Empty;
+
     public override async Task Init()
     {
         await Context.Authorize();
+        PageTitle = "Profile · Passkeys demo";
         await base.Init();
     }
 
     public override async Task Load()
     {
+        user = await userManager.GetUserAsync(Context.HttpContext.User!) ?? throw new UnauthorizedAccessException();
+
         if (!Context.IsPostBack)
         {
-            var user = await userManager.GetUserAsync(Context.HttpContext.User!) ?? throw new UnauthorizedAccessException();
-
             Form.FirstName = user.FirstName;
             Form.LastName = user.LastName;
         }
 
         await base.Load();
+    }
+
+    public override Task PreRender()
+    {
+        if (user is not null)
+        {
+            DisplayName = $"{user.FirstName} {user.LastName}".Trim();
+            Initials = string.Concat(new[] { user.FirstName, user.LastName }
+                .Where(name => name.Length > 0)
+                .Select(name => char.ToUpperInvariant(name[0])));
+            Email = user.Email ?? string.Empty;
+        }
+
+        return base.PreRender();
     }
 
     public async Task Save()

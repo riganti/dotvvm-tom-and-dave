@@ -13,5 +13,5 @@ public class LayoutViewModel : DotvvmViewModelBase
 {
     public List<NotificationData> Notifications { get; set; } = [];
 
-    public string PageTitle { get; set; } = "_10_Passkeys";
+    public string PageTitle { get; set; } = "Passkeys demo";
 }

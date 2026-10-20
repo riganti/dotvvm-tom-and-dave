@@ -11,6 +11,7 @@ public class RegisterPasskeyViewModel : LayoutViewModel
     public override async Task Init()
     {
         await Context.Authorize();
+        PageTitle = "Add a passkey · Passkeys demo";
         await base.Init();
     }
 }

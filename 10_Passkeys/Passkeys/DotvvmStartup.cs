@@ -27,6 +27,8 @@ public class DotvvmStartup : IDotvvmStartup, IDotvvmServiceConfigurator
 
     private void ConfigureControls(DotvvmConfiguration config, string applicationPath)
     {
+        config.Markup.AddMarkupControl("cc", "Mascot", "Controls/Mascot/Mascot.dotcontrol");
+        config.Markup.AddMarkupControl("cc", "PageHero", "Controls/PageHero/PageHero.dotcontrol");
     }
 
     private void ConfigureResources(DotvvmConfiguration config, string applicationPath)

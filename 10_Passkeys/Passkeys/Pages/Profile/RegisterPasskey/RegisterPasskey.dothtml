@@ -7,21 +7,53 @@
     <dot:NamedCommand Name="GetRegistrationOptions" Command="{staticCommand: _passkeys.GetRegistrationOptions()}" />
     <dot:NamedCommand Name="CompleteRegistration" Command="{staticCommand: (string credentialJson, string deviceName) => _passkeys.CompleteRegistration(credentialJson, deviceName)}" />
 
-    <main class="mx-auto max-w-xl p-6">
-        <t:Card HeaderText="Register passkey">
+    <cc:PageHero Title="Add a passkey"
+                 Subtitle="Turn the device you're holding into your key."
+                 MascotSays="Give it a name you'll recognise, like “Work laptop”." />
+
+    <div class="page-body">
+        <t:Card>
             <ContentTemplate>
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step-dot">1</span>
+                        <div>
+                            <p class="step-title">Name it</p>
+                            <p class="step-text">So you can tell your devices apart later.</p>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <span class="step-dot">2</span>
+                        <div>
+                            <p class="step-title">Confirm it's you</p>
+                            <p class="step-text">Your browser asks for your face, fingerprint or PIN.</p>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <span class="step-dot">3</span>
+                        <div>
+                            <p class="step-title">That's it</p>
+                            <p class="step-text">Next time, sign in with a single tap.</p>
+                        </div>
+                    </li>
+                </ol>
+
                 <form>
                 <t:Form>
                     <ContentTemplate>
                         <t:TextBoxFormField LabelText="Device name" Text="{value: _root.Form.DeviceName}" />
-                        <p data-passkey-status role="status" aria-live="polite" class="mt-4 text-sm text-slate-600"></p>
+                        <div class="passkey-status">
+                            <cc:Mascot class="mascot mascot-framed passkey-status-character" />
+                            <p data-passkey-status role="status" aria-live="polite" class="bubble bubble-left"></p>
+                        </div>
                     </ContentTemplate>
                     <FooterTemplate>
-                        <t:Button Text="Register passkey" Type="Primary" Icon="Key" IsSubmitButton="true" Click="{staticCommand: _js.Invoke("passkeyRegister", _root.Form.DeviceName)}" Validation.Target="{value: _root.Form}" />
+                        <t:Button Text="Create passkey" Type="Primary" Size="Large" Icon="FingerPrint" IsSubmitButton="true" Click="{staticCommand: _js.InvokeAsync("passkeyRegister", _root.Form.DeviceName)}" Validation.Target="{value: _root.Form}" />
+                        <t:RouteLink Text="Cancel" Type="Ghost" Size="Large" RouteName="Security" />
                     </FooterTemplate>
                 </t:Form>
                 </form>
             </ContentTemplate>
         </t:Card>
-    </main>
+    </div>
 </dot:Content>

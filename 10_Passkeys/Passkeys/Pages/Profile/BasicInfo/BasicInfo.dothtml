@@ -2,40 +2,68 @@
 @masterPage Pages/Layout.dotmaster
 
 <dot:Content ContentPlaceHolderID="MainContent">
-    <main class="mx-auto max-w-3xl space-y-6 p-6">
-        <t:Card HeaderText="Basic info">
-            <ContentTemplate>
-                <form>
-                <t:Form>
-                    <ContentTemplate>
-                        <t:Alert Type="Success" Text="Profile updated successfully." Visible="{value: _root.ProfileSaved}" />
-                        <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="First name" Text="{value: _root.Form.FirstName}" Size="Half" />
-                            <t:TextBoxFormField LabelText="Last name" Text="{value: _root.Form.LastName}" Size="Half" />
-                        </t:FormRow>
-                    </ContentTemplate>
-                    <FooterTemplate>
-                        <t:Button Text="Save changes" Type="Primary" IsSubmitButton="true" Click="{command: _root.Save()}" Validation.Target="{value: _root.Form}" />
-                    </FooterTemplate>
-                </t:Form>
-                </form>
-            </ContentTemplate>
-        </t:Card>
-        <t:Card HeaderText="Delete account">
-            <ContentTemplate>
-                <form>
-                <t:Form>
-                    <ContentTemplate>
-                        <t:Button Text="Delete account" Type="Danger" IsSubmitButton="true" Click="{command: _root.DeleteAccount()}" Validation.Enabled="false">
+    <cc:PageHero Title="Your profile"
+                 Subtitle="This is how you appear across the app."
+                 MascotSays="{value: "Hi, " + Form.FirstName + "! Looking sharp today."}" />
+
+    <div class="page-body">
+        <t:StackLayout Gap="Large">
+            <t:Card>
+                <HeaderTemplate>
+                    <div class="identity">
+                        <t:Avatar Initials="{value: Initials}" Size="ExtraLarge" class="identity-avatar" />
+                        <div>
+                            <h2 class="identity-name">{{value: DisplayName}}</h2>
+                            <p class="identity-email">{{value: Email}}</p>
+                        </div>
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <form>
+                    <t:Form>
+                        <ContentTemplate>
+                            <t:Alert Type="Success" Text="Profile updated successfully." Visible="{value: _root.ProfileSaved}" />
+                            <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
+                            <t:FormRow>
+                                <t:TextBoxFormField LabelText="First name" Text="{value: _root.Form.FirstName}" Size="Half" />
+                                <t:TextBoxFormField LabelText="Last name" Text="{value: _root.Form.LastName}" Size="Half" />
+                            </t:FormRow>
+                        </ContentTemplate>
+                        <FooterTemplate>
+                            <t:Button Text="Save changes" Type="Primary" Icon="Check" IsSubmitButton="true" Click="{command: _root.Save()}" Validation.Target="{value: _root.Form}" />
+                        </FooterTemplate>
+                    </t:Form>
+                    </form>
+                </ContentTemplate>
+            </t:Card>
+
+            <div class="tip-card">
+                <cc:Mascot class="mascot mascot-framed tip-character" />
+                <div class="tip-text">
+                    <h2>Have you added a passkey yet?</h2>
+                    <p>They're faster than typing a password and can't be phished. Add one for every device you use.</p>
+                </div>
+                <t:RouteLink Text="Manage passkeys" Type="Primary" Icon="ArrowRight" IconPosition="End" RouteName="Security" />
+            </div>
+
+            <t:Card class="danger-zone">
+                <ContentTemplate>
+                    <div class="card-title-row">
+                        <div class="card-title">
+                            <span class="icon-tile icon-tile-danger"><t:Icon Icon="Trash" /></span>
+                            <div>
+                                <h2>Delete account</h2>
+                                <p>Permanently removes your account and every passkey registered to it.</p>
+                            </div>
+                        </div>
+                        <t:Button Text="Delete account" Type="Danger" Click="{command: _root.DeleteAccount()}" Validation.Enabled="false">
                             <PostBack.Handlers>
-                                <t:ModalConfirmPostBackHandler Message="Delete your account and all registered passkeys?" />
+                                <t:ModalConfirmPostBackHandler Title="Delete account" Message="Delete your account and all registered passkeys?" ConfirmButtonText="Delete account" ConfirmButtonType="Danger" />
                             </PostBack.Handlers>
                         </t:Button>
-                    </ContentTemplate>
-                </t:Form>
-                </form>
-            </ContentTemplate>
-        </t:Card>
-    </main>
+                    </div>
+                </ContentTemplate>
+            </t:Card>
+        </t:StackLayout>
+    </div>
 </dot:Content>

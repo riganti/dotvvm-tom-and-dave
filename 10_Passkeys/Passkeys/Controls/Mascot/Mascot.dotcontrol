@@ -1,0 +1,10 @@
+@viewModel object
+
+<%-- The RIGANTI character. Size and mood are set by CSS classes on the control: mascot-framed, mascot-float, mascot-hop. --%>
+<svg class="mascot-svg" viewBox="-1 -1 63.32 59.3" aria-hidden="true" focusable="false">
+    <g class="mascot-eyes">
+        <circle class="mascot-eye" cx="21.88" cy="21.44" r="5.95" />
+        <circle class="mascot-eye" cx="39.45" cy="21.44" r="5.95" />
+    </g>
+    <polygon class="mascot-body" points="43.49 57.3 43.49 42.87 61.32 42.87 61.32 0 0 0 0 57.3 8.42 57.3 8.42 8.42 52.9 8.42 52.9 34.45 18 34.45 18 42.87 35.07 42.87 35.07 57.3 43.49 57.3" />
+</svg>

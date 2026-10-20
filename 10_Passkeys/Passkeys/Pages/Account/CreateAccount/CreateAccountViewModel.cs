@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace _10_Passkeys.Pages.Account.CreateAccount;
 
-public class CreateAccountViewModel(UserManager<ApplicationUser> userManager) : DotvvmViewModelBase
+public class CreateAccountViewModel(UserManager<ApplicationUser> userManager) : AuthLayoutViewModel
 {
     public CreateAccountForm Form { get; set; } = new();
 
@@ -13,6 +13,12 @@ public class CreateAccountViewModel(UserManager<ApplicationUser> userManager) : 
 
     [Bind(Direction.ServerToClient)]
     public bool AccountCreated { get; set; }
+
+    public override Task Init()
+    {
+        PageTitle = "Create account · Passkeys demo";
+        return base.Init();
+    }
 
     public async Task CreateAccount()
     {

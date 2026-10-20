@@ -2,56 +2,81 @@
 @masterPage Pages/Layout.dotmaster
 
 <dot:Content ContentPlaceHolderID="MainContent">
-    <main class="mx-auto max-w-4xl space-y-8 p-6">
-        <t:Card HeaderText="Change password">
-            <ContentTemplate>
-                <form>
-                <t:Form>
-                    <ContentTemplate>
-                        <t:Alert Type="Success" Text="Password changed successfully." Visible="{value: _root.PasswordChanged}" />
-                        <t:Alert Type="Danger" Text="{value: _root.PasswordError}" Visible="{value: _root.PasswordError != null}" />
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="Current password" Text="{value: _root.PasswordForm.CurrentPassword}" Type="Password" Size="Half" />
-                        </t:FormRow>
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="New password" Text="{value: _root.PasswordForm.NewPassword}" Type="Password" Size="Half" />
-                        </t:FormRow>
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="Confirm new password" Text="{value: _root.PasswordForm.ConfirmPassword}" Type="Password" Size="Half" />
-                        </t:FormRow>
-                    </ContentTemplate>
-                    <FooterTemplate>
-                        <t:Button Text="Change password" Type="Primary" IsSubmitButton="true" Click="{command: _root.ChangePassword()}" Validation.Target="{value: _root.PasswordForm}" />
-                    </FooterTemplate>
-                </t:Form>
-                </form>
-            </ContentTemplate>
-        </t:Card>
+    <cc:PageHero Title="Security"
+                 Subtitle="Choose how you sign in and keep your account locked tight."
+                 MascotSays="Passkeys beat passwords. Add one for every device you use!" />
 
-        <t:Card HeaderText="Passkeys">
-            <ContentTemplate>
-                <div class="mb-5">
-                    <t:RouteLink Text="Add passkey" Type="Primary" Icon="Plus" RouteName="RegisterPasskey" />
-                </div>
-                <t:GridView DataSource="{value: Passkeys}" ShowHeaderWhenNoData="true">
-                    <Columns>
-                        <dot:GridViewTextColumn HeaderText="Name" ValueBinding="{value: Name}" />
-                        <dot:GridViewTextColumn HeaderText="Date created" ValueBinding="{value: CreatedAt}" />
-                        <dot:GridViewTemplateColumn>
-                            <ContentTemplate>
-                                <t:Button Text="Delete" Type="Danger" Size="Small" Click="{command: _root.DeletePasskey(CredentialId)}" Validation.Enabled="false">
-                                    <PostBack.Handlers>
-                                        <t:ModalConfirmPostBackHandler Message="Delete this passkey?" />
-                                    </PostBack.Handlers>
-                                </t:Button>
-                            </ContentTemplate>
-                        </dot:GridViewTemplateColumn>
-                    </Columns>
-                    <EmptyDataTemplate>
-                        <p class="py-6 text-center text-slate-500">No passkeys registered.</p>
-                    </EmptyDataTemplate>
-                </t:GridView>
-            </ContentTemplate>
-        </t:Card>
-    </main>
+    <div class="page-body">
+        <t:StackLayout Gap="Large">
+            <t:Card>
+                <HeaderTemplate>
+                    <div class="card-title-row">
+                        <div class="card-title">
+                            <span class="icon-tile"><t:Icon Icon="Key" /></span>
+                            <div>
+                                <h2>Passkeys</h2>
+                                <p>Sign in with your face, fingerprint or device PIN.</p>
+                            </div>
+                        </div>
+                        <t:RouteLink Text="Add passkey" Type="Primary" Icon="Plus" RouteName="RegisterPasskey" Visible="{value: Passkeys.Count > 0}" />
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <dot:Repeater DataSource="{value: Passkeys}" WrapperTagName="ul" class="passkey-list" Visible="{value: Passkeys.Count > 0}">
+                        <li class="passkey-row">
+                            <span class="icon-tile icon-tile-mint"><t:Icon Icon="FingerPrint" /></span>
+                            <div class="passkey-meta">
+                                <p class="passkey-name">{{value: Name}}</p>
+                                <p class="passkey-date">Added {{value: CreatedAt}}</p>
+                            </div>
+                            <t:Button Text="Remove" Type="Ghost" Icon="Trash" Size="Small" class="button-remove" Click="{command: _root.DeletePasskey(CredentialId)}" Validation.Enabled="false">
+                                <PostBack.Handlers>
+                                    <t:ModalConfirmPostBackHandler Title="Remove passkey" Message="Delete this passkey? You won't be able to sign in with it anymore." ConfirmButtonText="Remove" ConfirmButtonType="Danger" />
+                                </PostBack.Handlers>
+                            </t:Button>
+                        </li>
+                    </dot:Repeater>
+
+                    <div class="empty-state" Visible="{value: Passkeys.Count == 0}">
+                        <cc:Mascot class="mascot mascot-framed mascot-float empty-character" />
+                        <h3>No passkeys yet</h3>
+                        <p>Add one and sign in with just a glance or a touch. I'll keep it safe for you.</p>
+                        <t:RouteLink Text="Add your first passkey" Type="Primary" Icon="Plus" RouteName="RegisterPasskey" />
+                    </div>
+                </ContentTemplate>
+            </t:Card>
+
+            <t:Card>
+                <HeaderTemplate>
+                    <div class="card-title">
+                        <span class="icon-tile"><t:Icon Icon="LockClosed" /></span>
+                        <div>
+                            <h2>Password</h2>
+                            <p>Still using a password as well? Keep it long and unique.</p>
+                        </div>
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <form>
+                    <t:Form>
+                        <ContentTemplate>
+                            <t:Alert Type="Success" Text="Password changed successfully." Visible="{value: _root.PasswordChanged}" />
+                            <t:Alert Type="Danger" Text="{value: _root.PasswordError}" Visible="{value: _root.PasswordError != null}" />
+                            <t:FormRow>
+                                <t:TextBoxFormField LabelText="Current password" Text="{value: _root.PasswordForm.CurrentPassword}" Type="Password" Size="Half" />
+                            </t:FormRow>
+                            <t:FormRow>
+                                <t:TextBoxFormField LabelText="New password" Text="{value: _root.PasswordForm.NewPassword}" Type="Password" Size="Half" />
+                                <t:TextBoxFormField LabelText="Confirm new password" Text="{value: _root.PasswordForm.ConfirmPassword}" Type="Password" Size="Half" />
+                            </t:FormRow>
+                        </ContentTemplate>
+                        <FooterTemplate>
+                            <t:Button Text="Change password" Type="Secondary" IsSubmitButton="true" Click="{command: _root.ChangePassword()}" Validation.Target="{value: _root.PasswordForm}" />
+                        </FooterTemplate>
+                    </t:Form>
+                    </form>
+                </ContentTemplate>
+            </t:Card>
+        </t:StackLayout>
+    </div>
 </dot:Content>

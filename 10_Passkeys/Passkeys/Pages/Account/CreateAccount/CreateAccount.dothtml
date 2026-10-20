@@ -1,54 +1,49 @@
 @viewModel _10_Passkeys.Pages.Account.CreateAccount.CreateAccountViewModel, 10_Passkeys
+@masterPage Pages/AuthLayout.dotmaster
 
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create account</title>
-    <dot:RequiredResource Name="app.css" />
-    <dot:RequiredResource Name="app.js" />
-    <dot:HeadResourceLinks />
-</head>
-<body>
-    <main class="min-h-screen bg-slate-50 px-6 py-12">
-        <div class="mx-auto max-w-2xl">
-        <t:Card HeaderText="Create account">
-            <ContentTemplate>
-                <t:Alert Type="Success" Visible="{value: _root.AccountCreated}">
-                    Account created successfully.
-                </t:Alert>
-                <div class="mt-4" Visible="{value: _root.AccountCreated}">
-                    <t:RouteLink Text="Back to sign in" Type="Primary" RouteName="SignIn" />
-                </div>
-                <form Visible="{value: !_root.AccountCreated}">
-                <t:Form>
-                    <ContentTemplate>
-                        <dot:ValidationSummary IncludeErrorsFromChildren="true" />
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="First name" Text="{value: _root.Form.FirstName}" Size="Half" />
-                            <t:TextBoxFormField LabelText="Last name" Text="{value: _root.Form.LastName}" Size="Half" />
-                        </t:FormRow>
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="E-mail address" Text="{value: _root.Form.Email}" Type="Email" Size="Half" />
-                        </t:FormRow>
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="Password" Text="{value: _root.Form.Password}" Type="Password" Size="Half" />
-                        </t:FormRow>
-                        <t:FormRow>
-                            <t:TextBoxFormField LabelText="Confirm password" Text="{value: _root.Form.ConfirmPassword}" Type="Password" Size="Half" />
-                        </t:FormRow>
-                        <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
-                    </ContentTemplate>
-                    <FooterTemplate>
-                        <t:Button Text="Create account" Type="Primary" IsSubmitButton="true" Click="{command: _root.CreateAccount()}" Validation.Target="{value: _root.Form}" />
-                    </FooterTemplate>
-                </t:Form>
-                </form>
-            </ContentTemplate>
-        </t:Card>
-        </div>
-    </main>
-    <dot:BodyResourceLinks />
-</body>
-</html>
+<dot:Content ContentPlaceHolderID="MascotSays">
+    <span Visible="{value: !_root.AccountCreated}">Nice to meet you! Create an account, then we'll set up your first passkey.</span>
+    <span Visible="{value: _root.AccountCreated}">Welcome aboard! I can't wait to meet your first passkey.</span>
+</dot:Content>
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <div class="success-panel" role="status" Visible="{value: _root.AccountCreated}">
+        <cc:Mascot class="mascot mascot-framed mascot-hop success-character" />
+        <h1>You're all set!</h1>
+        <p class="lead">Your account is ready. Sign in, then add a passkey under <strong>Security</strong>.</p>
+        <t:RouteLink Text="Continue to sign in" Type="Primary" Size="Large" Icon="ArrowRight" IconPosition="End" RouteName="SignIn" />
+    </div>
+
+    <t:StackLayout Gap="Large" Visible="{value: !_root.AccountCreated}">
+        <header class="auth-heading">
+            <p class="eyebrow">Get started</p>
+            <h1>Create your account</h1>
+            <p class="lead">It takes a minute. After that, a passkey replaces your password.</p>
+        </header>
+
+        <form>
+            <t:Form>
+                <ContentTemplate>
+                    <dot:ValidationSummary IncludeErrorsFromChildren="true" class="validation-summary" />
+                    <t:FormRow>
+                        <t:TextBoxFormField LabelText="First name" Text="{value: _root.Form.FirstName}" />
+                        <t:TextBoxFormField LabelText="Last name" Text="{value: _root.Form.LastName}" />
+                    </t:FormRow>
+                    <t:TextBoxFormField LabelText="E-mail address" Text="{value: _root.Form.Email}" Type="Email" />
+                    <t:FormRow>
+                        <t:TextBoxFormField LabelText="Password" Text="{value: _root.Form.Password}" Type="Password" />
+                        <t:TextBoxFormField LabelText="Confirm password" Text="{value: _root.Form.ConfirmPassword}" Type="Password" />
+                    </t:FormRow>
+                    <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
+                </ContentTemplate>
+                <FooterTemplate>
+                    <t:Button Text="Create account" Type="Primary" Size="Large" class="w-full" IsSubmitButton="true" Click="{command: _root.CreateAccount()}" Validation.Target="{value: _root.Form}" />
+                </FooterTemplate>
+            </t:Form>
+        </form>
+
+        <p class="auth-switch">
+            Already have an account? <dot:RouteLink Text="Sign in" RouteName="SignIn" />
+        </p>
+    </t:StackLayout>
+</dot:Content>

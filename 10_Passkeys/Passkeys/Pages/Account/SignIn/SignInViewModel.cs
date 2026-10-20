@@ -4,12 +4,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace _10_Passkeys.Pages.Account.SignIn;
 
-public class SignInViewModel(SignInManager<ApplicationUser> signInManager) : DotvvmViewModelBase
+public class SignInViewModel(SignInManager<ApplicationUser> signInManager) : AuthLayoutViewModel
 {
     public SignInForm Form { get; set; } = new();
 
     [Bind(Direction.ServerToClient)]
     public string? ErrorMessage { get; set; }
+
+    public override Task Init()
+    {
+        PageTitle = "Sign in · Passkeys demo";
+        return base.Init();
+    }
 
     public async Task SignIn()
     {

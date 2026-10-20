@@ -7,33 +7,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{resource: PageTitle}}</title>
+    <link rel="icon" type="image/svg+xml" href="/img/mascot.svg" />
     <dot:RequiredResource Name="app.css" />
     <dot:RequiredResource Name="app.js" />
     <dot:HeadResourceLinks />
 </head>
-<body>
+<body class="app-shell">
 
     <t:AppLayout>
         <TopMenuTemplate>
-            <t:TopMenu>
+            <t:TopMenu HamburgerPosition="End">
                 <StartTemplate>
-                    <a href="/" class="text-xl font-bold text-slate-900 no-underline">Passkeys</a>
+                    <dot:RouteLink RouteName="Profile" class="brand">
+                        <cc:Mascot class="mascot brand-mark" />
+                        <span class="brand-name">Passkeys</span>
+                        <span class="brand-pill">demo</span>
+                    </dot:RouteLink>
                 </StartTemplate>
+                <MiddleTemplate>
+                    <t:MenuItem Text="Profile" RouteName="Profile" Icon="UserCircle" IsActive="{resource: Context.Route.RouteName == "Profile"}" />
+                    <t:MenuItem Text="Security" RouteName="Security" Icon="ShieldCheck" IsActive="{resource: Context.Route.RouteName != "Profile"}" />
+                </MiddleTemplate>
                 <EndTemplate>
-                    <t:MenuItem Text="Sign out" NavigateUrl="/" />
+                    <t:MenuItem Text="Sign out" NavigateUrl="/" Icon="ArrowRightStartOnRectangle" />
                 </EndTemplate>
+                <MobileTemplate>
+                    <t:MenuItem Text="Profile" RouteName="Profile" Icon="UserCircle" IsActive="{resource: Context.Route.RouteName == "Profile"}" />
+                    <t:MenuItem Text="Security" RouteName="Security" Icon="ShieldCheck" IsActive="{resource: Context.Route.RouteName != "Profile"}" />
+                    <t:MenuItem Text="Sign out" NavigateUrl="/" Icon="ArrowRightStartOnRectangle" />
+                </MobileTemplate>
             </t:TopMenu>
         </TopMenuTemplate>
-        <SideMenuTemplate>
-            <t:SideMenu>
-                <t:SideMenuSection Title="My Profile">
-                    <t:MenuItem Text="Basic info" RouteName="Profile" Icon="UserCircle" />
-                    <t:MenuItem Text="Security" RouteName="Security" Icon="ShieldCheck" />
-                </t:SideMenuSection>
-            </t:SideMenu>
-        </SideMenuTemplate>
         <Content>
             <dot:ContentPlaceHolder ID="MainContent" />
+
+            <footer class="app-footer">
+                <cc:Mascot class="mascot app-footer-mark" />
+                <span>Passkeys demo &middot; DotVVM + ASP.NET Core Identity</span>
+            </footer>
         </Content>
     </t:AppLayout>
 
