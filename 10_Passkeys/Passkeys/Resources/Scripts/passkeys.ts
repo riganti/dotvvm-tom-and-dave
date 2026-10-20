@@ -14,7 +14,13 @@ class PasskeysModule {
 
             const optionsJson = await this.context.namedCommands.GetRegistrationOptions();
             const publicKey = PublicKeyCredential.parseCreationOptionsFromJSON(JSON.parse(optionsJson));
-            const credential = await navigator.credentials.create({ publicKey });
+            const credential = await navigator.credentials.create({ publicKey }).catch((error: unknown) => {
+                if (error instanceof DOMException && error.name === "NotAllowedError") {
+                    throw new Error("Passkey registration was canceled.");
+                }
+
+                throw error;
+            });
 
             if (!credential) {
                 throw new Error("No credential was returned.");
