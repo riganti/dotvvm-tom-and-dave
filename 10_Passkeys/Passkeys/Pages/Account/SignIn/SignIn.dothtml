@@ -1,0 +1,60 @@
+@viewModel _10_Passkeys.Pages.Account.SignIn.SignInViewModel, 10_Passkeys
+@service _passkeys = _10_Passkeys.Services.PasskeyService
+@js passkeys
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in</title>
+    <dot:RequiredResource Name="app.css" />
+    <dot:RequiredResource Name="app.js" />
+    <dot:RequiredResource Name="passkeys" />
+    <dot:HeadResourceLinks />
+</head>
+<body>
+    <dot:NamedCommand Name="GetLoginOptions" Command="{staticCommand: _passkeys.GetLoginOptions()}" />
+    <dot:NamedCommand Name="CompleteLogin" Command="{staticCommand: (string credentialJson) => _passkeys.CompleteLogin(credentialJson)}" />
+    <main class="min-h-screen bg-slate-50 px-6 py-12">
+        <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+        <t:Card HeaderText="Sign in">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:TextBoxFormField LabelText="E-mail address" Text="{value: _root.Form.Email}" Type="Email" />
+                        <t:TextBoxFormField LabelText="Password" Text="{value: _root.Form.Password}" Type="Password" />
+                        <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
+                    </ContentTemplate>
+                    <FooterTemplate>
+                        <t:Button Text="Sign in" Type="Primary" IsSubmitButton="true" Click="{command: _root.SignIn()}" Validation.Target="{value: _root.Form}" />
+                    </FooterTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card HeaderText="Passkey">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:Button Text="Sign in using Passkey" Type="Primary" Icon="Key" IsSubmitButton="true" Click="{staticCommand: _js.Invoke("passkeyLogin")}" Validation.Enabled="false" />
+                        <p data-passkey-status role="status" aria-live="polite" class="mt-4 text-sm text-slate-600"></p>
+                    </ContentTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card HeaderText="New here">
+            <ContentTemplate>
+                <t:RouteLink Text="Create new account" Type="Secondary" RouteName="CreateAccount" />
+            </ContentTemplate>
+        </t:Card>
+        </div>
+    </main>
+    <dot:BodyResourceLinks />
+</body>
+</html>

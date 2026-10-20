@@ -1,0 +1,12 @@
+# BorderRadius
+
+Namespace: `DotVVM.Bootstrap5`
+
+## Values
+* `Full` = `0`
+* `Top` = `1`
+* `Bottom` = `2`
+* `Left` = `3`
+* `Right` = `4`
+* `Circle` = `5`
+* `Pill` = `6`

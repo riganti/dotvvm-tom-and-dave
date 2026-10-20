@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/10_Passkeys/Passkeys/passkeys-demo.db

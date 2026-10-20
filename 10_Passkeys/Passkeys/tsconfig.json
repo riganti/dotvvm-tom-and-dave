@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "typeRoots": [ "node_modules/@types", "node_modules/dotvvm-types" ],
+    "rootDir": "./Resources/Scripts",
+    "outDir": "./wwwroot/js",
+    "sourceMap": true,
+    "strict": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "files": [ "./node_modules/dotvvm-types/types/index.d.ts", "./Resources/Scripts/app.ts", "./Resources/Scripts/passkeys.ts" ]
+}

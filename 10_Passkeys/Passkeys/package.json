@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.1",
+    "dotvvm-types": "^5.0.0-preview09-final",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "npm run build-css && npm run build-js",
+    "build-css": "tailwindcss -i ./Resources/Styles/app.css -o ./wwwroot/css/app.css --minify",
+    "build-js": "tsc"
+  }
+}

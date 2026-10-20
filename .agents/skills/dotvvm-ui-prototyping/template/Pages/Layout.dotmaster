@@ -1,0 +1,26 @@
+﻿@viewModel AppTemplate.Pages.LayoutViewModel, AppTemplate
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{resource: PageTitle}}</title>
+    <dot:RequiredResource Name="app.css" />
+    <dot:RequiredResource Name="app.js" />
+</head>
+<body>
+
+    <t:AppLayout>
+        <Content>
+            <dot:ContentPlaceHolder ID="MainContent" />
+        </Content>
+    </t:AppLayout>
+
+    <t:Notifications Items="{value: Notifications}" />
+    
+</body>
+</html>
+
+

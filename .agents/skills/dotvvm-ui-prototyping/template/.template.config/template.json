@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "DotVVM",
+  "classifications": [ "Web" ],
+  "identity": "DotVVM.Templates.TailwindUIPrototype",
+  "name": "DotVVM UI Prototype",
+  "shortName": "dotvvm-ui-prototyping",
+  "sourceName": "AppTemplate"
+}

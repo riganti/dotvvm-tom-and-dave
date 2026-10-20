@@ -1,0 +1,44 @@
+﻿@viewModel _10_Passkeys.Pages.LayoutViewModel, 10_Passkeys
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{resource: PageTitle}}</title>
+    <dot:RequiredResource Name="app.css" />
+    <dot:RequiredResource Name="app.js" />
+    <dot:HeadResourceLinks />
+</head>
+<body>
+
+    <t:AppLayout>
+        <TopMenuTemplate>
+            <t:TopMenu>
+                <StartTemplate>
+                    <a href="/" class="text-xl font-bold text-slate-900 no-underline">Passkeys</a>
+                </StartTemplate>
+                <EndTemplate>
+                    <t:MenuItem Text="Sign out" NavigateUrl="/" />
+                </EndTemplate>
+            </t:TopMenu>
+        </TopMenuTemplate>
+        <SideMenuTemplate>
+            <t:SideMenu>
+                <t:SideMenuSection Title="My Profile">
+                    <t:MenuItem Text="Basic info" RouteName="Profile" Icon="UserCircle" />
+                    <t:MenuItem Text="Security" RouteName="Security" Icon="ShieldCheck" />
+                </t:SideMenuSection>
+            </t:SideMenu>
+        </SideMenuTemplate>
+        <Content>
+            <dot:ContentPlaceHolder ID="MainContent" />
+        </Content>
+    </t:AppLayout>
+
+    <t:Notifications Items="{value: Notifications}" />
+
+    <dot:BodyResourceLinks />
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿@viewModel AppTemplate.Pages.Home.HomeViewModel, AppTemplate
+@masterPage Pages/Layout.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+
+
+</dot:Content>
+

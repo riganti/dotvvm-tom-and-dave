@@ -1,0 +1,9 @@
+# NotificationAlignment
+
+Namespace: `DotVVM.Controls.Tailwind`
+
+## Values
+* `BottomRight` = `0`
+* `BottomLeft` = `1`
+* `TopRight` = `2`
+* `TopLeft` = `3`

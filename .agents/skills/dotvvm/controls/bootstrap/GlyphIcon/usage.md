@@ -1,0 +1,44 @@
+# <bs:GlyphIcon>
+Renders a Bootstrap glyph icon.
+
+<https://getbootstrap.com/docs/3.3/components/#glyphicons>
+
+## Properties
+|Name|Type|Description|Notes|Default Value|
+|---|---|---|---|---|
+|`ClientIDMode`|([ClientIDMode](../../builtin/_enums/DotVVM.Framework.Controls.ClientIDMode.md))|Gets or sets the client ID generation algorithm.|attribute, static value|Static|
+|`DataContext`|Object|Gets or sets a data context for the control and its children. All value and command bindings are evaluated in context of this value.             The DataContext is null in client-side templates.|attribute, bindable||
+|`Icon`|([GlyphIcons](../_enums/DotVVM.Framework.Controls.Bootstrap.GlyphIcons.md))|Gets or sets the icon to display. As default this property is set to Empty.|attribute, static value, bindable|Empty|
+|`ID`|String|Gets or sets the control client ID within its naming container.|attribute, static value, bindable||
+|`IncludeInPage`|Boolean|Gets or sets whether the control is included in the DOM of the page.|attribute, static value, bindable|True|
+|`InnerText`|String|Gets or sets the inner text of the HTML element. Note that this property can only be used on HtmlGenericControl directly and when the control does not have any children.|attribute, static value, bindable||
+|`Visible`|Boolean|Gets or sets whether the control is visible. When set to false, `style="display: none"` will be added to this control.|attribute, static value, bindable|True|
+
+## Sample 1: GlyphIcon
+
+The `Icon` property specifies the icon which will be displayed.
+
+```DOTHTML
+<bs:GlyphIcon Icon="Check" /> 
+
+<br/><br/>
+
+<dot:CheckBox Checked="{value: IsCorrect}" Text="Is Correct?" /><br/>
+<bs:GlyphIcon Icon="{value: IsCorrect ? Check : Warning_sign}" />
+```
+
+```CSHARP
+using DotVVM.Framework.ViewModel;
+using DotVVM.Framework.Controls.Bootstrap;
+
+namespace DotvvmWeb.Views.Docs.Controls.bootstrap.GlyphIcon.sample1
+{
+    public class ViewModel : DotvvmViewModelBase
+    {
+        public bool IsCorrect { get; set; }
+        public GlyphIcons Check { get; set; } = GlyphIcons.Check;
+        public GlyphIcons Warning_sign { get; set; } = GlyphIcons.Warning_sign;
+    }
+}
+```
+

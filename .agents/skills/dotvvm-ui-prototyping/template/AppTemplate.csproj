@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="**/*.dothtml;**/*.dotmaster;**/*.dotcontrol" Exclude="obj/**/*.*;bin/**/*.*" CopyToPublishDirectory="Always" />
+    <None Remove="**/*.dothtml;**/*.dotmaster;**/*.dotcontrol" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="dotvvm_serialized_config.json.tmp" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Cafour.MSBuild.JS configuration -->
+    <JSPackageManager>npm</JSPackageManager>
+    <JSUseBuildInputDefaults>false</JSUseBuildInputDefaults>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Add actual source files as build inputs -->
+    <JSBuildInput Include="Controls/**/*.ts" />
+    <JSBuildInput Include="Controls/**/*.css" />
+    <JSBuildInput Include="Pages/**/*.ts" />
+    <JSBuildInput Include="Pages/**/*.css" />
+    <JSBuildInput Include="Resources/Scripts/**/*.ts" />
+    <JSBuildInput Include="Resources/Styles/**/*.css" />
+    <JSBuildInput Include="tsconfig.json" />
+    <!-- Tell Visual Studio to run the build when the included files change -->
+    <UpToDateCheckInput Include="@(JSBuildInput)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Cafour.MSBuild.JS" Version="0.2.0" />
+    <PackageReference Include="DotVVM.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="DotVVM.HotReload.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="DotVVM.Controls.Tailwind" Version="5.0.0" />
+  </ItemGroup>
+</Project>

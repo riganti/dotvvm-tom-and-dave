@@ -1,0 +1,27 @@
+@viewModel _10_Passkeys.Pages.Profile.RegisterPasskey.RegisterPasskeyViewModel, 10_Passkeys
+@masterPage Pages/Layout.dotmaster
+@service _passkeys = _10_Passkeys.Services.PasskeyService
+@js passkeys
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <dot:NamedCommand Name="GetRegistrationOptions" Command="{staticCommand: _passkeys.GetRegistrationOptions()}" />
+    <dot:NamedCommand Name="CompleteRegistration" Command="{staticCommand: (string credentialJson, string deviceName) => _passkeys.CompleteRegistration(credentialJson, deviceName)}" />
+
+    <main class="mx-auto max-w-xl p-6">
+        <t:Card HeaderText="Register passkey">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:TextBoxFormField LabelText="Device name" Text="{value: _root.Form.DeviceName}" />
+                        <p data-passkey-status role="status" aria-live="polite" class="mt-4 text-sm text-slate-600"></p>
+                    </ContentTemplate>
+                    <FooterTemplate>
+                        <t:Button Text="Register passkey" Type="Primary" Icon="Key" IsSubmitButton="true" Click="{staticCommand: _js.Invoke("passkeyRegister", _root.Form.DeviceName)}" Validation.Target="{value: _root.Form}" />
+                    </FooterTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+    </main>
+</dot:Content>

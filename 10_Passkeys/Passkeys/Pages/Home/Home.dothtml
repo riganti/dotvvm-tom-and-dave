@@ -1,0 +1,7 @@
+﻿@viewModel _10_Passkeys.Pages.Home.HomeViewModel, 10_Passkeys
+@masterPage Pages/Layout.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+
+
+</dot:Content>

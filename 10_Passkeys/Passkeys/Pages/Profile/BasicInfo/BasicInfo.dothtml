@@ -1,0 +1,41 @@
+@viewModel _10_Passkeys.Pages.Profile.BasicInfo.BasicInfoViewModel, 10_Passkeys
+@masterPage Pages/Layout.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <main class="mx-auto max-w-3xl space-y-6 p-6">
+        <t:Card HeaderText="Basic info">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:Alert Type="Success" Text="Profile updated successfully." Visible="{value: _root.ProfileSaved}" />
+                        <t:Alert Type="Danger" Text="{value: _root.ErrorMessage}" Visible="{value: _root.ErrorMessage != null}" />
+                        <t:FormRow>
+                            <t:TextBoxFormField LabelText="First name" Text="{value: _root.Form.FirstName}" Size="Half" />
+                            <t:TextBoxFormField LabelText="Last name" Text="{value: _root.Form.LastName}" Size="Half" />
+                        </t:FormRow>
+                    </ContentTemplate>
+                    <FooterTemplate>
+                        <t:Button Text="Save changes" Type="Primary" IsSubmitButton="true" Click="{command: _root.Save()}" Validation.Target="{value: _root.Form}" />
+                    </FooterTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+        <t:Card HeaderText="Delete account">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:Button Text="Delete account" Type="Danger" IsSubmitButton="true" Click="{command: _root.DeleteAccount()}" Validation.Enabled="false">
+                            <PostBack.Handlers>
+                                <t:ModalConfirmPostBackHandler Message="Delete your account and all registered passkeys?" />
+                            </PostBack.Handlers>
+                        </t:Button>
+                    </ContentTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+    </main>
+</dot:Content>

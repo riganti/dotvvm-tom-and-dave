@@ -1,0 +1,57 @@
+@viewModel _10_Passkeys.Pages.Profile.Security.SecurityViewModel, 10_Passkeys
+@masterPage Pages/Layout.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <main class="mx-auto max-w-4xl space-y-8 p-6">
+        <t:Card HeaderText="Change password">
+            <ContentTemplate>
+                <form>
+                <t:Form>
+                    <ContentTemplate>
+                        <t:Alert Type="Success" Text="Password changed successfully." Visible="{value: _root.PasswordChanged}" />
+                        <t:Alert Type="Danger" Text="{value: _root.PasswordError}" Visible="{value: _root.PasswordError != null}" />
+                        <t:FormRow>
+                            <t:TextBoxFormField LabelText="Current password" Text="{value: _root.PasswordForm.CurrentPassword}" Type="Password" Size="Half" />
+                        </t:FormRow>
+                        <t:FormRow>
+                            <t:TextBoxFormField LabelText="New password" Text="{value: _root.PasswordForm.NewPassword}" Type="Password" Size="Half" />
+                        </t:FormRow>
+                        <t:FormRow>
+                            <t:TextBoxFormField LabelText="Confirm new password" Text="{value: _root.PasswordForm.ConfirmPassword}" Type="Password" Size="Half" />
+                        </t:FormRow>
+                    </ContentTemplate>
+                    <FooterTemplate>
+                        <t:Button Text="Change password" Type="Primary" IsSubmitButton="true" Click="{command: _root.ChangePassword()}" Validation.Target="{value: _root.PasswordForm}" />
+                    </FooterTemplate>
+                </t:Form>
+                </form>
+            </ContentTemplate>
+        </t:Card>
+
+        <t:Card HeaderText="Passkeys">
+            <ContentTemplate>
+                <div class="mb-5">
+                    <t:RouteLink Text="Add passkey" Type="Primary" Icon="Plus" RouteName="RegisterPasskey" />
+                </div>
+                <t:GridView DataSource="{value: Passkeys}" ShowHeaderWhenNoData="true">
+                    <Columns>
+                        <dot:GridViewTextColumn HeaderText="Name" ValueBinding="{value: Name}" />
+                        <dot:GridViewTextColumn HeaderText="Date created" ValueBinding="{value: CreatedAt}" />
+                        <dot:GridViewTemplateColumn>
+                            <ContentTemplate>
+                                <t:Button Text="Delete" Type="Danger" Size="Small" Click="{command: _root.DeletePasskey(CredentialId)}" Validation.Enabled="false">
+                                    <PostBack.Handlers>
+                                        <t:ModalConfirmPostBackHandler Message="Delete this passkey?" />
+                                    </PostBack.Handlers>
+                                </t:Button>
+                            </ContentTemplate>
+                        </dot:GridViewTemplateColumn>
+                    </Columns>
+                    <EmptyDataTemplate>
+                        <p class="py-6 text-center text-slate-500">No passkeys registered.</p>
+                    </EmptyDataTemplate>
+                </t:GridView>
+            </ContentTemplate>
+        </t:Card>
+    </main>
+</dot:Content>
