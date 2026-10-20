@@ -13,36 +13,42 @@ using _10_Passkeys;
 
 var builder = WebApplication.CreateBuilder();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? "Data Source=passkeys-demo.db"));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=passkeys-demo.db"));
+
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-        options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+	.AddIdentity<ApplicationUser, IdentityRole>(options =>
+	{
+		options.SignIn.RequireConfirmedAccount = false;
+		options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
+	})
+	.AddEntityFrameworkStores<ApplicationDbContext>()
+	.AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>
-    options.LoginPath = "/");
+{
+	options.LoginPath = "/";
+});
 builder.Services.Configure<IdentityPasskeyOptions>(options =>
-    options.ServerDomain = "localhost");
+{
+	// TODO: update for production
+	options.ServerDomain = "localhost";
+});
+
 builder.Services.AddScoped<PasskeyService>();
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddDotVVM<DotvvmStartup>();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.EnsureCreatedAsync();
+	await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.EnsureCreatedAsync();
 }
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+	app.UseExceptionHandler("/Error");
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
