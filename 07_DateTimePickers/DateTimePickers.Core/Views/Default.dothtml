@@ -1,0 +1,30 @@
+@viewModel DateTimePickers.Core.ViewModels.DefaultViewModel, DateTimePickers.Core
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DateTime Pickers</title>
+</head>
+<body>
+
+    <h1>Base DateTimePicker</h1>
+
+    <dot:TextBox Text="{value: SelectedDate}" Type="Date" />
+    <br />
+
+    <dot:TextBox Text="{value: SelectedDate}" Type="Time" />
+    <br />
+
+    <dot:TextBox Text="{value: SelectedDate}" Type="DateTimeLocal" />
+    <br />
+
+    <dot:TextBox Text="{value: SelectedDate.ToBrowserLocalTime()}" Type="DateTimeLocal" />
+    <br />
+
+
+    <dot:Button Text="Increment date" Click="{command: SelectedDate = SelectedDate.AddDays(1)}" />
+
+</body>
+</html>
